@@ -7,7 +7,7 @@
     <div class="collapse navbar-collapse" id="navbarScroll">
       <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
+          <a class="nav-link active" routerLink="/catalogue">Catalogue</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Link</a>
@@ -32,10 +32,23 @@
         <button class="btn btn-outline-success" type="submit">Search</button>
       </form>
       <ul class="navbar-nav" style="--bs-scroll-height: 100px;">
-        <li class="nav-item">
+        <li class="nav-item dropdown" *ngIf="(authService.user$ | async) as user">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fas fa-user"></i> {{ user.displayName }}
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+            <!-- Insérez ici les options du menu du profil -->
+            <li><a class="dropdown-item" href="#">Profile</a></li>
+            <li><a class="dropdown-item" href="#">Settings</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#" (click)="authService.signOut()">Logout</a></li>
+          </ul>
+        </li>
+        <!-- Sinon, affichez des liens de connexion et d'inscription -->
+        <li class="nav-item" *ngIf="!(authService.user$ | async)">
           <a class="nav-link" routerLink="/login">Login</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" *ngIf="!(authService.user$ | async)">
           <a class="nav-link active" routerLink="/signup">Sign up</a>
         </li>
       </ul>

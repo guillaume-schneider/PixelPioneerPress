@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Component({
   selector: 'app-signup',
@@ -10,16 +11,26 @@ export class SignupComponent implements OnInit {
   @Input() username: string = '';
   @Input() password: string = '';
   @Input() email: string = '';
-
-  constructor() { }
+  errorMessage: string = '';
 
   ngOnInit(): void {
   }
 
-  signup(): void {
-    console.log('Username: ', this.username);
-    console.log('Password: ', this.password);
-    console.log('Email: ', this.email);
+
+  constructor(private afAuth: AngularFireAuth) {}
+
+  signUp() {
+    this.afAuth.createUserWithEmailAndPassword(this.email, this.password)
+      .then((userCredential) => {
+        // Sign-up successful
+        const user = userCredential.user;
+        console.log('User signed up:', user);
+      })
+      .catch((error) => {
+        // Handle sign-up errors
+        this.errorMessage = error.message;
+        console.error('Sign-up error:', error);
+      });
   }
 
 }
