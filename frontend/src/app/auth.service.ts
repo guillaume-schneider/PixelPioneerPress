@@ -13,8 +13,21 @@ export class AuthService {
     this.user$ = afAuth.authState;
   }
 
-  signUp(email: string, password: string) {
-    return this.afAuth.createUserWithEmailAndPassword(email, password);
+  async signUp(email: string, password: string, username: string) {
+    try {
+      // Créer le compte utilisateur avec email et mot de passe
+      const credential = await this.afAuth.createUserWithEmailAndPassword(email, password);
+
+      // Mettre à jour le profil utilisateur avec le nom d'utilisateur
+      if (credential.user) {
+        await credential.user.updateProfile({ displayName: username });
+      }
+
+      // Rediriger l'utilisateur ou effectuer d'autres actions nécessaires
+      // par exemple, enregistrer les informations dans une base de données Firestore
+    } catch (error) {
+      throw error;
+    }
   }
 
   signIn(email: string, password: string) {

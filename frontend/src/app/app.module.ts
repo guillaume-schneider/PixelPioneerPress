@@ -23,6 +23,7 @@ import { CatalogueComponent } from './catalogue/catalogue.component';
 import { CardComponent } from './card/card.component';
 import { ErrorFormatPipe } from './error-format.pipe';
 import { FirebaseSignUpErrorPipe } from './firebase-sign-up-error.pipe';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { FirebaseSignUpErrorPipe } from './firebase-sign-up-error.pipe';
     CatalogueComponent,
     CardComponent,
     ErrorFormatPipe,
-    FirebaseSignUpErrorPipe
+    FirebaseSignUpErrorPipe,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
