@@ -1,11 +1,5 @@
-<div class="row row-cols-1 row-cols-md-3 g-4">
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 card-container">
   <div class="col" *ngFor="let game of games">
-    <div class="card h-100">
-      <img [src]="game.image" class="card-img-top" [alt]="game.name" />
-      <div class="card-body">
-        <h5 class="card-title">{{ game.name }}</h5>
-        <div class="card-text" [innerHTML]="game.short_description"></div>
-      </div>
-    </div>
+    <app-game-card [game]="game"></app-game-card>
   </div>
 </div>

@@ -1,1 +1,9 @@
-<p>game-card works!</p>
+<div class="card h-100" (click)="goToGameDetails()">
+  <a [routerLink]="['/game', game.id]">
+    <img [src]="game.image" class="card-img-top" [alt]="game.name" />
+  </a>
+  <div class="card-body">
+    <h5 class="card-title">{{ game.name }}</h5>
+    <div class="card-text" [innerHTML]="game.short_description"></div>
+  </div>
+</div>

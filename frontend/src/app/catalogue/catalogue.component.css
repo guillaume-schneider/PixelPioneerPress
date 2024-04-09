@@ -1,15 +1,7 @@
-.description-popup {
-  position: absolute;
-  background-color: white;
-  border: 1px solid #ccc;
-  padding: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  z-index: 999;
-  top: 0;
-  left: 0;
-  display: none; /* Initialement caché */
+.card-container {
+  margin: 20px; /* Ajoute une marge de 20 pixels autour du conteneur de cartes */
 }
 
-.card:hover .description-popup {
-  display: block; /* Afficher le popup lorsque la souris survole la carte */
+.card {
+  margin-bottom: 20px; /* Ajoute une marge de 20 pixels en bas de chaque carte */
 }

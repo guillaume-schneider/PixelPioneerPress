@@ -25,6 +25,7 @@ import { ErrorFormatPipe } from './error-format.pipe';
 import { FirebaseSignUpErrorPipe } from './firebase-sign-up-error.pipe';
 import { ProfileComponent } from './profile/profile.component';
 import { HttpClientModule } from '@angular/common/http';
+import { GameDetailsComponent } from './game-details/game-details.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { HttpClientModule } from '@angular/common/http';
     CardComponent,
     ErrorFormatPipe,
     FirebaseSignUpErrorPipe,
-    ProfileComponent
+    ProfileComponent,
+    GameDetailsComponent
   ],
   imports: [
     BrowserModule,

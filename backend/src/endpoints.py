@@ -59,3 +59,23 @@ def get_data():
                 game = factory.Game(**game_data)
                 batch.add_game(game)
     return batch.to_json()
+
+@app.route('/steam/game/<int:id>')
+def get_game_by_id(id):
+    batch = GameBatch()
+    if not os.path.isdir('./res'):
+        os.makedirs('./res')
+    if not os.path.isfile('./res/data.json'):
+        batch = factory.create_game_component()
+        with open('./res/data.json', 'w') as f:
+            json.dump(batch.to_json(), f)
+    else:
+        with open('./res/data.json', 'r') as f:
+            data = json.load(f)
+            for game_data in data['games']:
+                game = factory.Game(**game_data)
+                batch.add_game(game)
+    game = batch.get_game_by_id(id)
+    if game:
+        return game.__dict__
+    return {"error": "Game not found"}

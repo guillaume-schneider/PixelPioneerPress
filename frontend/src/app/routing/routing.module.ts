@@ -6,13 +6,15 @@ import { LoginComponent } from '../login/login.component';
 import { SignupComponent } from '../signup/signup.component';
 import { CatalogueComponent } from '../catalogue/catalogue.component';
 import { ProfileComponent } from '../profile/profile.component';
+import { GameDetailsComponent } from '../game-details/game-details.component';
 
 const routes: Routes = [
   {path:'', component: HomeComponent},
   {path: 'catalogue', component: CatalogueComponent},
   {path: 'login', component: LoginComponent},
   {path: 'signup', component: SignupComponent},
-  {path: 'profile', component: ProfileComponent}
+  {path: 'profile', component: ProfileComponent},
+  {path: 'game/:id', component: GameDetailsComponent}
 ];
 
 @NgModule({

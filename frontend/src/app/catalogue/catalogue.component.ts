@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GameService } from '../game.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-catalogue',
@@ -13,7 +14,8 @@ export class CatalogueComponent implements OnInit {
   safeDescriptions: SafeHtml[] = [];
   showDescription: boolean = false;
 
-  constructor(private gameService: GameService, private sanitizer: DomSanitizer) { }
+  constructor(private gameService: GameService, private sanitizer: DomSanitizer,
+              private router: Router) { }
 
   ngOnInit(): void {
     this.getGames();

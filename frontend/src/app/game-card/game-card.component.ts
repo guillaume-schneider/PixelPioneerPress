@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-game-card',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GameCardComponent implements OnInit {
 
-  constructor() { }
+  @Input() game: any; // Entrée pour les données du jeu
+
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
+  }
+
+  goToGameDetails() {
+    this.router.navigate(['/game', this.game.id]);
   }
 
 }
