@@ -12,6 +12,9 @@ export class ProfileComponent implements OnInit {
   newDisplayName!: string | null;
   newEmail!: string | null;
   isEditMode: boolean = false;
+  displayNameError: string | null = null;
+  emailError: string | null = null;
+  hasError: boolean = false;
 
   constructor(private authService: AuthService) { }
 
@@ -41,9 +44,13 @@ export class ProfileComponent implements OnInit {
     this.user.updateProfile({ displayName: this.newDisplayName })
       .then(() => {
         console.log('Nom d\'utilisateur mis à jour avec succès');
+        this.displayNameError = null;
+        this.checkErrors();
       })
       .catch((error: any) => {
         console.error('Erreur lors de la mise à jour du nom d\'utilisateur:', error);
+        this.displayNameError = error.message;
+        this.checkErrors();
       });
 
     if (this.newEmail) {
@@ -52,12 +59,20 @@ export class ProfileComponent implements OnInit {
     this.user.updateEmail(this.newEmail)
       .then(() => {
         console.log('Adresse e-mail mise à jour avec succès');
+        this.emailError = null;
+        this.checkErrors();
       })
       .catch((error: any) => {
         console.error('Erreur lors de la mise à jour de l\'adresse e-mail:', error);
+        this.emailError = error.message;
+        this.checkErrors();
       });
     }
     // Passer en mode affichage après la mise à jour
     this.isEditMode = false;
+  }
+
+  checkErrors() {
+    this.hasError = !!this.displayNameError || !!this.emailError;
   }
 }

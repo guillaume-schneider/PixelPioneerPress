@@ -13,12 +13,14 @@
             <div class="mb-3">
               <label for="displayName" class="form-label">Nom d'utilisateur :</label>
               <input type="text" id="displayName" class="form-control" [(ngModel)]="newDisplayName" name="displayName">
+              <div *ngIf="displayNameError" class="text-danger">{{ displayNameError }}</div>
             </div>
             <div class="mb-3">
               <label for="email" class="form-label">Adresse e-mail :</label>
               <input type="email" id="email" class="form-control" [(ngModel)]="newEmail" name="email">
+              <div *ngIf="emailError" class="text-danger">{{ emailError }}</div>
             </div>
-            <button class="btn btn-primary" (click)="updateProfile()">Enregistrer</button>
+            <button class="btn btn-primary" [disabled]="hasError" (click)="updateProfile()">Enregistrer</button>
             <button class="btn btn-secondary" (click)="toggleEditMode()">Annuler</button>
           </div>
         </div>
