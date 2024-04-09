@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, Renderer2 } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +6,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'frontend';
+  title = 'PixelPioneerPress';
+
+  constructor(private renderer: Renderer2, private el: ElementRef) {}
+
+  ngOnInit() {
+    const footerHeight = this.el.nativeElement.querySelector('.footer').offsetHeight;
+    this.renderer.setStyle(this.el.nativeElement.querySelector('.content'), 'padding-bottom', footerHeight + 'px');
+  }
+
 }

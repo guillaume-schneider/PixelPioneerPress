@@ -1,0 +1,18 @@
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Ajuste la hauteur minimale de l'élément conteneur à la hauteur de la fenêtre */
+}
+
+.router-outlet {
+  flex: 1; /* Le contenu principal (router-outlet) prendra tout l'espace restant */
+}
+
+.app-footer {
+  flex-shrink: 0; /* Empêche le footer de se réduire lorsqu'il y a peu de contenu */
+}
