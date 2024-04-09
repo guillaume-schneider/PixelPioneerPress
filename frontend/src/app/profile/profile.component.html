@@ -20,7 +20,7 @@
               <input type="email" id="email" class="form-control" [(ngModel)]="newEmail" name="email">
               <div *ngIf="emailError" class="text-danger">{{ emailError }}</div>
             </div>
-            <button class="btn btn-primary" [disabled]="hasError" (click)="updateProfile()">Enregistrer</button>
+            <button class="btn btn-primary" (click)="updateProfile()">Enregistrer</button>
             <button class="btn btn-secondary" (click)="toggleEditMode()">Annuler</button>
           </div>
         </div>

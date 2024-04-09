@@ -24,6 +24,7 @@ import { CardComponent } from './card/card.component';
 import { ErrorFormatPipe } from './error-format.pipe';
 import { FirebaseSignUpErrorPipe } from './firebase-sign-up-error.pipe';
 import { ProfileComponent } from './profile/profile.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { ProfileComponent } from './profile/profile.component';
     RoutingModule,
     FormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    HttpClientModule
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]
