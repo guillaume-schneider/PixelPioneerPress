@@ -2,6 +2,7 @@
   transform: scale(1.05);
   transition: transform 0.3s ease;
 }
+
 .card {
   width: 500px;
   height: 400px;
@@ -12,6 +13,7 @@
   overflow: hidden;
   transition: max-height 0.3s ease-in-out;
   position: relative;
+  margin-top: 10px;
 }
 
 .card:hover .card-description {
@@ -54,7 +56,6 @@
   margin-bottom: 10px; /* Marge inférieure */
   border-radius: 5px;
   margin-right: 12px;
-
 }
 
 .rating:hover .positive, .rating:hover .negative {
@@ -67,4 +68,29 @@
 
 .negative {
   color: red;
+}
+.rate {
+  padding-bottom: 10px;
+}
+
+.btn-wish {
+  margin-top: 10px;
+}
+
+/* .card-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+} */
+
+.rate_data {
+  padding-bottom: 10px;
+}
+
+.volet {
+  max-height: 15px;
+  padding-top: 10px;
 }

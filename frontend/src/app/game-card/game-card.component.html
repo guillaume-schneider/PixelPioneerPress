@@ -2,20 +2,26 @@
   <ng-container *ngIf="game.image">
     <a [routerLink]="['/game', game.id]">
       <img [src]="game.image" class="card-img-top" [alt]="game.name" />
+      <!-- <video *ngIf="showVideo" class="card-video">
+        <source [src]="game.video" type="video/mp4">
+        Your browser does not support the video tag.
+      </video> -->
     </a>
   </ng-container>
   <div class="card-body">
-    <div class="volet">
+    <div class="volet d-flex align-items-center">
       <span class="rating">Rating</span>
       <span class="rate" *ngIf="showRating" (mouseenter)="toggleData()" [style]="getRatingStyle()">{{ getRatioValue() | round }} %</span>
-      <span class="positive" *ngIf="showPositive" (mouseleave)="toggleRating()">{{ game.positive_rating | largeNumber }}</span>
-      <span *ngIf="showPositive"> / </span>
-      <span class="negative" *ngIf="showNegative" (mouseleave)="toggleRating()">{{ game.negative_rating | largeNumber }}</span>
+      <div class="rate_data" (mouseout)="toggleRating()">
+        <span class="positive" *ngIf="showPositive">{{ game.positive_rating | largeNumber }}</span>
+        <span *ngIf="showPositive"> / </span>
+        <span class="negative" *ngIf="showNegative">{{ game.negative_rating | largeNumber }}</span>
+      </div>
     </div>
     <div class="card-description" [ngClass]="{ 'hide': !showDesc }" #description>
       <h5 class="card-title">{{ game.name }}</h5>
       <div class="card-text">{{ game.short_description }}</div>
-      <button class="btn btn-primary" (click)="addToWishlist(game.id)">Ajouter à la wishlist</button>
+      <button class="btn btn-primary btn-wish" (click)="addToWishlist(game.id)">Ajouter à la wishlist</button>
     </div>
   </div>
 </div>

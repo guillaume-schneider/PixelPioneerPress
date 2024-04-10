@@ -21,6 +21,7 @@ def create_game_component():
         linux_requirement = steam_info['linux_requirements']['minimum'] if 'minimum' in steam_info['linux_requirements'] else ""
         mac_requirement = steam_info['mac_requirements']['minimum'] if 'minimum' in steam_info['mac_requirements'] else ""
         pc_requirement = steam_info['pc_requirements']['minimum'] if 'minimum' in steam_info['pc_requirements'] else ""
+        video = steam_info['movies'][0]['mp4']['480'] if 'movies' in steam_info else ""
 
         game = Game(id=game_id, title=steam_info['name'],
                     developer=steam_info['developers'][0], 
@@ -36,7 +37,8 @@ def create_game_component():
                     linux_requirement=linux_requirement,
                     pc_requirement=pc_requirement,
                     mac_requirement=mac_requirement,
-                    release_date=steam_info['release_date']['date']
+                    release_date=steam_info['release_date']['date'],
+                    video=video,
                     )
         batch.add_game(game)
         print(f"{game_id}: finishing...")

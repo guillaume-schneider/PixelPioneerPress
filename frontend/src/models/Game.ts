@@ -13,4 +13,5 @@ export interface Game {
   publisher: string;
   release_date: string;
   short_description: string;
+  video: string;
 }

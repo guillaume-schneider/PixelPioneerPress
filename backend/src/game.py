@@ -19,7 +19,7 @@ class Game:
     pc_requirement: str
     mac_requirement: str
     #screenshots: list[str]
-    #movies: Movie
+    video: str
     release_date: str
 
 

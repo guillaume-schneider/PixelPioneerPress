@@ -19,6 +19,7 @@ export class GameCardComponent implements OnInit {
   showRating: boolean = true;
   showPositive: boolean = false;
   showNegative: boolean = false;
+  showVideo: boolean = false;
 
   constructor(private wishlistService: WishlistService, private router: Router,
     private authService: AuthService) {}
@@ -36,7 +37,6 @@ export class GameCardComponent implements OnInit {
     this.showPositive = true;
     this.showNegative = true;
     this.showRating = false;
-
   }
 
   ngAfterViewInit() {
@@ -107,5 +107,17 @@ export class GameCardComponent implements OnInit {
   getRatioValue(): number {
     return (this.game.positive_rating/(this.game.positive_rating + this.game.negative_rating))*100;
   }
+
+  // toggleVideo(show: boolean): void {
+  //   console.log('Toggle video: ', this.game.video);
+  //   this.showVideo = show;
+  // }
+
+  // startVideo() {
+  //   const video = document.querySelector('.card-video') as HTMLVideoElement;
+  //   if (video) {
+  //     video.play();
+  //   }
+  // }
 
 }

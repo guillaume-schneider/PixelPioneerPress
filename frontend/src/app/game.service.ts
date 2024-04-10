@@ -24,6 +24,7 @@ export class GameService {
             genres: game.genres.split(',').map((genre: string) => genre.trim()), // Split genres string into array
             description: game.description,
             image: game.image,
+            video: game.video,
             linux_requirement: game.linux_requirement,
             mac_requirement: game.mac_requirement,
             negative_rating: game.negative_rating,
@@ -51,6 +52,7 @@ export class GameService {
         genres: game.genres.split(',').map((genre: string) => genre.trim()), // Split genres string into array
         description: game.description,
         image: game.image,
+        video: game.video,
         linux_requirement: game.linux_requirement,
         mac_requirement: game.mac_requirement,
         negative_rating: game.negative_rating,
