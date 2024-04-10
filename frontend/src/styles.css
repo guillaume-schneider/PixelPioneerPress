@@ -1,1 +1,43 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+
+/* Définition des couleurs principales */
+:root {
+  --couleur-principale: #272727; /* Couleur principale */
+  --couleur-secondaire: #101010; /* Couleur secondaire (blanc) */
+  --couleur-tertiaire: #101010; /* Couleur tertiaire (gris) */
+  --couleur-texte: #ffffff; /* Couleur du texte */
+}
+/* Styles généraux */
+body {
+  background-color: var(--couleur-principale) !important;
+  color: var(--couleur-texte);
+  font-family: Arial, sans-serif;
+}
+
+/* Styles pour les éléments spécifiques à Angular */
+/* Exemple: Bouton */
+.button,
+.btn {
+  background-color: var(--couleur-principale) !important;
+  color: var(--couleur-secondaire) !important;
+}
+
+/* Styles pour les éléments spécifiques à Angular */
+/* Exemple: Carte */
+.card {
+  background-color: var(--couleur-tertiaire);
+  color: var(--couleur-texte);
+  box-shadow: 6px 6px 8px rgba(0, 0, 0, 0.5);
+}
+
+.navbar {
+  background-color: rgba(0, 0, 0, 0.75) !important;
+  color: white !important; /* Texte en blanc */
+}
+
+.navbar * {
+  color: inherit;
+}
+/* Ajoutez d'autres styles personnalisés selon vos besoins */

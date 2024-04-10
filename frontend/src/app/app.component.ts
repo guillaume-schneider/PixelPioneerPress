@@ -11,8 +11,13 @@ export class AppComponent {
   constructor(private renderer: Renderer2, private el: ElementRef) {}
 
   ngOnInit() {
-    const footerHeight = this.el.nativeElement.querySelector('.footer').offsetHeight;
-    this.renderer.setStyle(this.el.nativeElement.querySelector('.content'), 'padding-bottom', footerHeight + 'px');
+    const element = this.el.nativeElement.querySelector('.footer');
+    if (element) {
+      const footerHeight = this.el.nativeElement.querySelector('.footer').offsetHeight;
+      this.renderer.setStyle(this.el.nativeElement.querySelector('.content'), 'padding-bottom', footerHeight + 'px');
+    } else {
+      console.error("L'élément n'a pas été trouvé.");
+    }
   }
 
 }

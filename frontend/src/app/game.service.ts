@@ -30,7 +30,6 @@ export class GameService {
             pc_requirement: game.pc_requirement,
             positive_rating: game.positive_rating,
             publisher: game.publisher,
-            ratio_rating: game.ratio_rating,
             release_date: game.release_date,
             short_description: game.short_description
           }));
@@ -58,7 +57,6 @@ export class GameService {
         pc_requirement: game.pc_requirement,
         positive_rating: game.positive_rating,
         publisher: game.publisher,
-        ratio_rating: game.ratio_rating,
         release_date: game.release_date,
         short_description: game.short_description
       }))

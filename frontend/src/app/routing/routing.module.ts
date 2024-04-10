@@ -7,6 +7,7 @@ import { SignupComponent } from '../signup/signup.component';
 import { CatalogueComponent } from '../catalogue/catalogue.component';
 import { ProfileComponent } from '../profile/profile.component';
 import { GameDetailsComponent } from '../game-details/game-details.component';
+import { ResetPasswordComponent } from '../reset-password/reset-password.component';
 
 const routes: Routes = [
   {path:'', component: HomeComponent},
@@ -14,7 +15,8 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'signup', component: SignupComponent},
   {path: 'profile', component: ProfileComponent},
-  {path: 'game/:id', component: GameDetailsComponent}
+  {path: 'game/:id', component: GameDetailsComponent},
+  {path: 'reset-password', component: ResetPasswordComponent},
 ];
 
 @NgModule({

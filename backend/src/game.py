@@ -9,7 +9,6 @@ class Game:
     publisher: str
     positive_rating: int
     negative_rating: int
-    ratio_rating: float
     genres: list[str]
     subgenres: list[str]
     description: str

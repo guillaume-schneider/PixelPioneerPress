@@ -6,3 +6,65 @@
   width: 500px;
   height: 400px;
 }
+
+.card-description {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-in-out;
+  position: relative;
+}
+
+.card:hover .card-description {
+  height: 100%; /* Permet d'afficher le contenu complet */
+}
+
+/* Définition de l'animation */
+@keyframes slideIn {
+  from {
+    height: 0;
+  }
+  to {
+    height: 200px; /* Réglez la hauteur désirée */
+  }
+}
+
+@keyframes slideOut {
+  from {
+    height: 200px; /* Réglez la hauteur désirée */
+  }
+  to {
+    height: 0;
+  }
+}
+
+/* Appliquer l'animation */
+.card-description {
+  animation: slideIn 0.6s ease forwards; /* Animation d'apparition */
+}
+
+.card-description.hide {
+  animation: slideOut 0.6s ease forwards; /* Animation de disparition */
+}
+
+.rating {
+  border: 1px solid #757575; /* Bordure grise */
+  color: #949494;
+  padding: 3px 5px; /* Espacement intérieur */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Ombre légère */
+  margin-bottom: 10px; /* Marge inférieure */
+  border-radius: 5px;
+  margin-right: 12px;
+
+}
+
+.rating:hover .positive, .rating:hover .negative {
+  display: inline-block; /* Affiche les évaluations lorsqu'elles sont survolées */
+}
+
+.positive {
+  color: green;
+}
+
+.negative {
+  color: red;
+}

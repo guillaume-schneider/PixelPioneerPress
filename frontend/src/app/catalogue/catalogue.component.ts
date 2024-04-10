@@ -17,6 +17,8 @@ export class CatalogueComponent implements OnInit {
   constructor(private gameService: GameService, private sanitizer: DomSanitizer,
               private router: Router) { }
 
+    
+
   ngOnInit(): void {
     this.getGames();
   }

@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DivBehindComponent } from './div-behind.component';
+import { AuthDialogComponent } from './auth-dialog.component';
 
-describe('DivBehindComponent', () => {
-  let component: DivBehindComponent;
-  let fixture: ComponentFixture<DivBehindComponent>;
+describe('AuthDialogComponent', () => {
+  let component: AuthDialogComponent;
+  let fixture: ComponentFixture<AuthDialogComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DivBehindComponent ]
+      declarations: [ AuthDialogComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DivBehindComponent);
+    fixture = TestBed.createComponent(AuthDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

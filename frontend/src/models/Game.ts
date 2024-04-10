@@ -11,7 +11,6 @@ export interface Game {
   pc_requirement: string;
   positive_rating: number;
   publisher: string;
-  ratio_rating: number;
   release_date: string;
   short_description: string;
 }

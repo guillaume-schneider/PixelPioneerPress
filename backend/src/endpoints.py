@@ -46,14 +46,14 @@ def index():
 @app.route('/steam/games', methods=['GET'])
 def get_data():
     batch = GameBatch()
-    if not os.path.isdir('./res'):
-        os.makedirs('./res')
-    if not os.path.isfile('./res/data.json'):
+    if not os.path.isdir('./backend/res'):
+        os.makedirs('./backend/res')
+    if not os.path.isfile('./backend/res/data.json'):
         batch = factory.create_game_component()
-        with open('./res/data.json', 'w') as f:
+        with open('./backend/res/data.json', 'w') as f:
             json.dump(batch.to_json(), f)
     else:
-        with open('./res/data.json', 'r') as f:
+        with open('./backend/res/data.json', 'r') as f:
             data = json.load(f)
             for game_data in data['games']:
                 game = factory.Game(**game_data)
@@ -63,14 +63,14 @@ def get_data():
 @app.route('/steam/game/<int:id>')
 def get_game_by_id(id):
     batch = GameBatch()
-    if not os.path.isdir('./res'):
-        os.makedirs('./res')
-    if not os.path.isfile('./res/data.json'):
+    if not os.path.isdir('./backend/res'):
+        os.makedirs('./backend/res')
+    if not os.path.isfile('./backend/res/data.json'):
         batch = factory.create_game_component()
-        with open('./res/data.json', 'w') as f:
+        with open('./backend/res/data.json', 'w') as f:
             json.dump(batch.to_json(), f)
     else:
-        with open('./res/data.json', 'r') as f:
+        with open('./backend/res/data.json', 'r') as f:
             data = json.load(f)
             for game_data in data['games']:
                 game = factory.Game(**game_data)

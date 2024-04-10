@@ -27,7 +27,6 @@ def create_game_component():
                     publisher=steampsy_info['publisher'][0],
                     positive_rating=steampsy_info['positive'],
                     negative_rating=steampsy_info['negative'],
-                    ratio_rating=steampsy_info['positive']/steampsy_info['negative'],
                     genres=steampsy_info['genre'],
                     subgenres=steampsy_info['tags'],
                     description=steam_info['detailed_description'],

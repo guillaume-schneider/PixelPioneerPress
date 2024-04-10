@@ -3,9 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { CarouselComponent } from './carousel/carousel.component';
-import { DivBehindComponent } from './div-behind/div-behind.component';
 import { FooterComponent } from './footer/footer.component';
-import { CardCarouselComponent } from './card-carousel/card-carousel.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FormsModule } from '@angular/forms';
 import { RoutingModule } from './routing/routing.module';
@@ -20,31 +18,37 @@ import { AngularFirestore, AngularFirestoreModule } from '@angular/fire/compat/f
 import { environment } from '../environments/environment';
 import { Observable } from 'rxjs';
 import { CatalogueComponent } from './catalogue/catalogue.component';
-import { CardComponent } from './card/card.component';
 import { ErrorFormatPipe } from './error-format.pipe';
 import { FirebaseSignUpErrorPipe } from './firebase-sign-up-error.pipe';
 import { ProfileComponent } from './profile/profile.component';
 import { HttpClientModule } from '@angular/common/http';
 import { GameDetailsComponent } from './game-details/game-details.component';
+import { AuthDialogComponent } from './auth-dialog/auth-dialog.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule } from '@angular/material/dialog';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { LargeNumberPipe } from './large-number.pipe';
+import { RoundPipe } from './round.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     CarouselComponent,
-    DivBehindComponent,
     FooterComponent,
-    CardCarouselComponent,
     NavbarComponent,
     HomeComponent,
     LoginComponent,
     SignupComponent,
     GameCardComponent,
     CatalogueComponent,
-    CardComponent,
     ErrorFormatPipe,
     FirebaseSignUpErrorPipe,
     ProfileComponent,
-    GameDetailsComponent
+    GameDetailsComponent,
+    AuthDialogComponent,
+    ResetPasswordComponent,
+    LargeNumberPipe,
+    RoundPipe,
   ],
   imports: [
     BrowserModule,
@@ -52,9 +56,12 @@ import { GameDetailsComponent } from './game-details/game-details.component';
     FormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatDialogModule
+
   ],
-  providers: [AuthService],
+  providers: [AuthService,],
   bootstrap: [AppComponent]
 })
 export class AppModule {
