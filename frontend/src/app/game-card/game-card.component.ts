@@ -13,8 +13,9 @@ export class GameCardComponent implements OnInit {
   @Input() game: any;
   wishlist: any[] = [];
   showDesc: boolean = false;
-  @ViewChild('description')
-  description!: ElementRef;
+
+  @ViewChild('description') description!: ElementRef;
+  @ViewChild('description', {static: true}) descriptionElement!: ElementRef;
 
   showRating: boolean = true;
   showPositive: boolean = false;
@@ -75,10 +76,17 @@ export class GameCardComponent implements OnInit {
 
   showDescription() {
     this.showDesc = true;
+
+    const descriptionHeight = this.descriptionElement.nativeElement.scrollHeight;
+
+    // Appliquer la hauteur calculée pour l'animation
+    this.descriptionElement.nativeElement.style.maxHeight = `${descriptionHeight}px`
   }
 
   hideDescription() {
     this.showDesc = false;
+
+    this.descriptionElement.nativeElement.style.maxHeight = '0';
   }
 
   getRatingColor(ratio: number): string {

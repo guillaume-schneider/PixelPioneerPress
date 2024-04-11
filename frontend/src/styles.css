@@ -12,7 +12,7 @@ html, body { height: 100%; }
 /* Styles généraux */
 body {
   background-color: var(--couleur-principale) !important;
-  color: var(--couleur-texte);
+  color: var(--couleur-texte) !important;
   font-family: Arial, sans-serif;
 }
 
@@ -22,6 +22,7 @@ body {
 .btn {
   background-color: var(--couleur-principale) !important;
   color: var(--couleur-secondaire) !important;
+  border: 1px solid #ff7700 !important;
 }
 
 /* Styles pour les éléments spécifiques à Angular */

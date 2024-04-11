@@ -4,8 +4,11 @@
 }
 
 .card {
-  width: 500px;
-  height: 400px;
+  max-width: 100%;
+}
+
+.card-img-top {
+  width: 100%;
 }
 
 .card-description {
@@ -23,29 +26,29 @@
 /* Définition de l'animation */
 @keyframes slideIn {
   from {
-    height: 0;
+    max-height: 0; /* Utilisez max-height pour assurer une animation fluide */
   }
   to {
-    height: 200px; /* Réglez la hauteur désirée */
+    max-height: 500px; /* Utilisez une hauteur maximale fixe pour l'animation */
   }
 }
 
 @keyframes slideOut {
   from {
-    height: 200px; /* Réglez la hauteur désirée */
+    max-height: 500px; /* Utilisez une hauteur maximale fixe pour l'animation */
   }
   to {
-    height: 0;
+    max-height: 0;
   }
 }
 
 /* Appliquer l'animation */
 .card-description {
-  animation: slideIn 0.6s ease forwards; /* Animation d'apparition */
+  animation: slideIn 0.8s ease forwards; /* Animation d'apparition */
 }
 
 .card-description.hide {
-  animation: slideOut 0.6s ease forwards; /* Animation de disparition */
+  animation: slideOut 0.8s ease forwards; /* Animation de disparition */
 }
 
 .rating {

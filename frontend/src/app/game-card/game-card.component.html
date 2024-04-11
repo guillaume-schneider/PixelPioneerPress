@@ -18,7 +18,7 @@
         <span class="negative" *ngIf="showNegative">{{ game.negative_rating | largeNumber }}</span>
       </div>
     </div>
-    <div class="card-description" [ngClass]="{ 'hide': !showDesc }" #description>
+    <div class="card-description" [ngClass]="{ 'hide': !showDesc }" #description id="cardDescription">
       <h5 class="card-title">{{ game.name }}</h5>
       <div class="card-text">{{ game.short_description }}</div>
       <button class="btn btn-primary btn-wish" (click)="addToWishlist(game.id)">Ajouter à la wishlist</button>
