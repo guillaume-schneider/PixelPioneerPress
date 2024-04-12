@@ -1,0 +1,14 @@
+<div class="message-container">
+  <div *ngFor="let message of messages" class="message" [ngClass]="{'sent': message.senderId === currentUser?.uid, 'received': message.senderId !== currentUser?.uid}">
+    <div class="message-content">{{ message.content }}</div>
+    <div class="message-timestamp">{{ message.timestamp | date: 'mediumTime' }}</div>
+  </div>
+
+  <div *ngIf="messages.length === 0 && !loading" class="no-messages">Aucun message dans cette conversation.</div>
+  <div *ngIf="loading" class="loading-indicator">Chargement des messages...</div>
+</div>
+
+<div class="message-input">
+  <textarea [(ngModel)]="newMessage" class="message-textarea" placeholder="Entrez votre message..." rows="3"></textarea>
+  <button (click)="sendMessage()" class="send-button">Envoyer</button>
+</div>

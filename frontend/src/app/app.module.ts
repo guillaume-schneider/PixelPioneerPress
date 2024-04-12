@@ -29,6 +29,14 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { LargeNumberPipe } from './large-number.pipe';
 import { RoundPipe } from './round.pipe';
+import { MessageComponent } from './message/message.component';
+import { AddFriendComponent } from './add-friend/add-friend.component';
+import { FriendsListComponent } from './friends-list/friends-list.component';
+import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
+import { WishlistComponent } from './wishlist/wishlist.component';
+import { MatButtonModule } from '@angular/material/button';
+import { TextAnimationDirective } from './text-animation.directive';
+import {MatRippleModule} from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -49,6 +57,11 @@ import { RoundPipe } from './round.pipe';
     ResetPasswordComponent,
     LargeNumberPipe,
     RoundPipe,
+    MessageComponent,
+    AddFriendComponent,
+    FriendsListComponent,
+    WishlistComponent,
+    TextAnimationDirective,
   ],
   imports: [
     BrowserModule,
@@ -58,8 +71,13 @@ import { RoundPipe } from './round.pipe';
     AngularFirestoreModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MatDialogModule
-
+    MatDialogModule,
+    AngularFireDatabaseModule,
+    MatButtonModule,
+    MatRippleModule
+  ],
+  exports: [
+    TextAnimationDirective
   ],
   providers: [AuthService,],
   bootstrap: [AppComponent]

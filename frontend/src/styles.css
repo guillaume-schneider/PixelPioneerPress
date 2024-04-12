@@ -1,5 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 
+@import 'font.css';
+
 html, body { height: 100%; }
 
 /* Définition des couleurs principales */
@@ -8,12 +10,13 @@ html, body { height: 100%; }
   --couleur-secondaire: #101010; /* Couleur secondaire (blanc) */
   --couleur-tertiaire: #101010; /* Couleur tertiaire (gris) */
   --couleur-texte: #ffffff; /* Couleur du texte */
+  --color-special: #ff7700; /* Couleur spéciale */
 }
 /* Styles généraux */
 body {
   background-color: var(--couleur-principale) !important;
   color: var(--couleur-texte) !important;
-  font-family: Arial, sans-serif;
+  /* font-family: Arial, sans-serif; */
 }
 
 /* Styles pour les éléments spécifiques à Angular */
@@ -33,12 +36,26 @@ body {
   box-shadow: 6px 6px 8px rgba(0, 0, 0, 0.5);
 }
 
-.navbar {
-  background-color: rgba(0, 0, 0, 0.75) !important;
-  color: white !important; /* Texte en blanc */
+.mat-raised-button, .mat-flat-button, .mat-stroked-button, .mat-icon-button {
+  transition: box-shadow 0.3s ease-in-out;
 }
 
-.navbar * {
-  color: inherit;
+.mat-raised-button:hover, .mat-flat-button:hover, .mat-stroked-button:hover, .mat-icon-button:hover {
+  box-shadow: 0 5px 15px #ff7700;
 }
-/* Ajoutez d'autres styles personnalisés selon vos besoins */
+
+.text-animation {
+  cursor: pointer; /* Ajoute un indicateur de survol pour les utilisateurs */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.bold-text {
+  font-weight: bold;
+}
+
+.mat-ripple-element{
+  z-index:-1 !important;
+}
+.mat-ripple{
+  z-index:50;
+}

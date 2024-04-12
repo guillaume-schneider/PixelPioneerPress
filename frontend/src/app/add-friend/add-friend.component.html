@@ -1,0 +1,14 @@
+<div>
+  <input type="text" [(ngModel)]="searchQuery" placeholder="Rechercher des amis...">
+  <button (click)="searchUsers()">Rechercher</button>
+</div>
+
+<div *ngIf="searchResults.length > 0">
+  <h2>Résultats de la recherche :</h2>
+  <ul>
+    <li *ngFor="let user of searchResults">
+      {{ user.username }} ({{ user.tag }})
+      <button (click)="addFriend(user)">Ajouter comme ami</button>
+    </li>
+  </ul>
+</div>

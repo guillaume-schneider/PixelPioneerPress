@@ -63,8 +63,9 @@ export class GameCardComponent implements OnInit {
 
         const userId = currentUser.uid;
 
-        await this.wishlistService.addToWishlist(userId, gameId);
-        console.log('Jeu ajouté à la wishlist avec succès');
+        this.wishlistService.addToWishlist(userId, gameId).subscribe((response) => {
+          console.log('Jeu ajouté à la wishlist avec succès');
+        });
       } else {
         console.error('L\'utilisateur n\'est pas authentifié. Afficher la popup d\'authentification.');
         await this.authService.showAuthDialog();

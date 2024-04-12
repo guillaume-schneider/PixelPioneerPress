@@ -1,3 +1,45 @@
-.nav-link:hover {
-  color: orange; /* Change la couleur du texte au survol */
+/* styles.css (ou votre fichier de style global) */
+
+.navbar {
+  background-color: rgba(0, 0, 0, 0.75) !important;
+  color: white !important;
+  height: 90px;
+}
+
+.nav-link.active {
+  font-family: 'Roboto', sans-serif !important;
+  font-size: large;
+  color: rgb(220, 220, 220);
+  position: relative; /* Ajoutez une position relative pour les éléments actifs */
+}
+
+.nav-link.active::after {
+  content: ""; /* Ajoutez un contenu vide pour le pseudo-élément */
+  position: absolute; /* Positionnement absolu pour placer la ligne en bas */
+  bottom: -26px; /* Positionner la ligne en bas */
+  left: 50%; /* Centrer la ligne par rapport au texte */
+  height: 2px; /* Hauteur de la ligne */
+  background: #ff9500; /* Couleur de la ligne */
+  transition: width 0.3s ease, left 0.3s ease; /* Animation de transition pour l'effet de soulignement */
+  width: 0; /* Largeur initiale de la ligne (invisible) */
+}
+
+.nav-link.active:hover::after {
+  width: 100%; /* Largeur de la ligne lors du survol */
+  left: 0; /* Positionner la ligne à gauche lors du survol */
+}
+.custom-button {
+  color: white;
+  background-color: hsl(35, 100%, 40%);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  margin-left: 10px;
+  background: linear-gradient(to right, #ff8a00, #e52e71); /* Dégradé linéaire de gauche à droite */
+}
+
+.custom-button:hover {
+  background-color: #ff9500;
+  background: linear-gradient(to right, #e52e71, #ff8a00); /* Changement de direction du dégradé au survol */
 }

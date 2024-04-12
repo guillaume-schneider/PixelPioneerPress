@@ -6,7 +6,7 @@ cmd /c start cmd /k "backend\venv\Scripts\activate && python backend/src/main.py
 
 # Lancement de json-server
 echo "Lancement de json-server..."
-cmd /c start cmd /k "json-server --watch frontend/mydb.json"
+cmd /c start cmd /k "json-server --watch frontend/db.json --port 3000 --host localhost"
 
 # Lancement du serveur Angular
 echo "Lancement du serveur Angular..."

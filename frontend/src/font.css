@@ -1,0 +1,9 @@
+@font-face {
+  font-family: 'Font';
+  src: url('./assets/fonts/Font.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Riven';
+  src: url('./assets/fonts/Riven.TTF') format('truetype');
+}
