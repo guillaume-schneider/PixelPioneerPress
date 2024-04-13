@@ -1,14 +1,18 @@
-<!-- index.html (or your main HTML file) -->
-
-<!-- Container for the main page with light effects -->
-<div class="main-container">
-  <!-- Left side light effect -->
-  <div class="left-light"></div>
-
-  <!-- Content of the main page -->
-  <h1>Main Title</h1>
-  <p>Main content...</p>
-
-  <!-- Right side light effect -->
-  <div class="right-light"></div>
+<div class="wrapper" [@cardAnimation]>
+  <div class="card-container">
+    <app-home-card [image]="games[0].image"></app-home-card>
+    <app-home-card [image]="games[1].image"></app-home-card>
+  </div>
+  <h1 class="text">Featured Game</h1>
+  <a href="#" class="play-button">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    PLAY NOW
+  </a>
+  <div class="card-container">
+    <app-home-card [image]="games[2].image"></app-home-card>
+    <app-home-card [image]="games[3].image"></app-home-card>
+  </div>
 </div>

@@ -37,6 +37,10 @@ import { WishlistComponent } from './wishlist/wishlist.component';
 import { MatButtonModule } from '@angular/material/button';
 import { TextAnimationDirective } from './text-animation.directive';
 import {MatRippleModule} from '@angular/material/core';
+import { HomeCardComponent } from './home-card/home-card.component';
+
+import { MatCardModule } from '@angular/material/card';
+
 
 @NgModule({
   declarations: [
@@ -62,6 +66,7 @@ import {MatRippleModule} from '@angular/material/core';
     FriendsListComponent,
     WishlistComponent,
     TextAnimationDirective,
+    HomeCardComponent,
   ],
   imports: [
     BrowserModule,
@@ -74,7 +79,8 @@ import {MatRippleModule} from '@angular/material/core';
     MatDialogModule,
     AngularFireDatabaseModule,
     MatButtonModule,
-    MatRippleModule
+    MatRippleModule,
+    MatCardModule
   ],
   exports: [
     TextAnimationDirective

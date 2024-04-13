@@ -43,3 +43,10 @@
   background-color: #ff9500;
   background: linear-gradient(to right, #e52e71, #ff8a00); /* Changement de direction du dégradé au survol */
 }
+/* Définir la couleur du texte des icônes sur blanc */
+.navbar-nav .nav-link .fas {
+  color: white;
+}
+.navbar-nav .nav-link:hover .fas {
+  color: #ff9500;
+}
