@@ -2,8 +2,6 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
-import { CarouselComponent } from './carousel/carousel.component';
-import { FooterComponent } from './footer/footer.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FormsModule } from '@angular/forms';
 import { RoutingModule } from './routing/routing.module';
@@ -35,18 +33,19 @@ import { FriendsListComponent } from './friends-list/friends-list.component';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { WishlistComponent } from './wishlist/wishlist.component';
 import { MatButtonModule } from '@angular/material/button';
-import { TextAnimationDirective } from './text-animation.directive';
 import {MatRippleModule} from '@angular/material/core';
 import { HomeCardComponent } from './home-card/home-card.component';
 
 import { MatCardModule } from '@angular/material/card';
+import { WelcomeComponent } from './welcome/welcome.component';
+import { SearchBarComponent } from './search-bar/search-bar.component';
+import { SearchResultsComponent } from './search-results/search-results.component';
+import { TopComponent } from './top/top.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    CarouselComponent,
-    FooterComponent,
     NavbarComponent,
     HomeComponent,
     LoginComponent,
@@ -65,8 +64,11 @@ import { MatCardModule } from '@angular/material/card';
     AddFriendComponent,
     FriendsListComponent,
     WishlistComponent,
-    TextAnimationDirective,
     HomeCardComponent,
+    WelcomeComponent,
+    SearchBarComponent,
+    SearchResultsComponent,
+    TopComponent
   ],
   imports: [
     BrowserModule,
@@ -81,9 +83,6 @@ import { MatCardModule } from '@angular/material/card';
     MatButtonModule,
     MatRippleModule,
     MatCardModule
-  ],
-  exports: [
-    TextAnimationDirective
   ],
   providers: [AuthService,],
   bootstrap: [AppComponent]

@@ -1,7 +1,8 @@
 <nav class="navbar navbar-expand-lg sticky-top bg-body-tertiary">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">
-      <img src="D:\Program Files (x86)\Github\PixelPioneerPress\frontend\res\icon.png" alt="Logo" width="30" height="30" class="d-inline-block align-top">
+      <!-- <img src="https://i.ibb.co/dmwq5HJ/logo2.png" width="30" height="30" class="d-inline-block align-top"> -->
+      <img src="https://i.ibb.co/XbySdLY/logo.png" alt="logo" width="100" height="100" class="d-inline-block align-top"><
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -15,10 +16,7 @@
           <a class="nav-link active" href="#" appTextAnimation>Browse</a>
         </li>
       </ul>
-      <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
+      <app-search-bar></app-search-bar>
       <ul class="navbar-nav" style="--bs-scroll-height: 100px;">
         <li class="nav-item" *ngIf="(authService.user$ | async)">
           <a class="nav-link" routerLink="/wishlist">
@@ -32,7 +30,7 @@
 
         <li class="nav-item dropdown" *ngIf="(authService.user$ | async) as user">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <i class="fas fa-user"></i> {{ user.displayName }}
+            <i class="fas fa-user fa-lg"></i>
           </a>
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
             <li><a class="dropdown-item" routerLink="/profile">Profile</a></li>
@@ -41,11 +39,11 @@
           </ul>
         </li>
         <li class="nav-item" *ngIf="!(authService.user$ | async)">
-          <a class="nav-link custom-button" routerLink="/login" matRipple matRippleColor="hsl(35, 100%, 40%)">Login</a>
+          <a class="nav-link" routerLink="/login">
+            <i class="fas fa-user fa-lg"></i> <!-- Icône de profil -->
+          </a>
         </li>
-        <li class="nav-item" *ngIf="!(authService.user$ | async)">
-          <a class="nav-link custom-button" routerLink="/signup" matRipple matRippleColor="orange">Sign up</a>
-        </li>
+
       </ul>
     </div>
   </div>

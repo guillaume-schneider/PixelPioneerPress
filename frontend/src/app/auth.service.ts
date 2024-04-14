@@ -55,6 +55,7 @@ export class AuthService {
   async showAuthDialog(): Promise<void> {
     this.dialog.open(AuthDialogComponent, {
       width: '850px',
+      panelClass: 'custom-modalbox',
     });
   }
 

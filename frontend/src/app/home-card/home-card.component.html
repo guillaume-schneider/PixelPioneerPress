@@ -1,12 +1,12 @@
 
-<a href="/votre-page-de-destination">
+<a (click)="link()" class="click-animation">
   <div class="wrapper">
     <mat-card class="image-card">
-      <img mat-card-image [src]="image" alt="Image" >
+      <img mat-card-image [src]="game.image" alt="Image" >
       <div class="overlay">
         <div class="description">
-          <h2>Minecraft</h2>
-          <p>description</p>
+          <h2 class="title"> {{ game.title }} </h2>
+          <p>{{ game.short_description }}</p>
         </div>
       </div>
     </mat-card>

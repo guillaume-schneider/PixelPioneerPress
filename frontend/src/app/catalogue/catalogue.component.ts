@@ -1,7 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { GameService } from '../game.service';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { Router } from '@angular/router';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-catalogue',
@@ -10,30 +7,10 @@ import { Router } from '@angular/router';
 })
 export class CatalogueComponent implements OnInit {
 
-  games: any[] = [];
-  safeDescriptions: SafeHtml[] = [];
-  showDescription: boolean = false;
+  @Input() games!: any[];
 
-  constructor(private gameService: GameService, private sanitizer: DomSanitizer,
-              private router: Router) { }
-
-    
+  constructor() { }
 
   ngOnInit(): void {
-    this.getGames();
-  }
-
-  getGames() {
-    this.gameService.getGames().subscribe({
-      next: (games) => {
-        console.log('Jeux récupérés : ', games);
-        this.games = games;
-
-        this.safeDescriptions = this.games.map(game => this.sanitizer.bypassSecurityTrustHtml(game.short_description));
-      },
-      error: (error) => {
-        console.error('Une erreur s\'est produite : ', error);
-      }
-    });
   }
 }

@@ -19,7 +19,7 @@
   bottom: -26px; /* Positionner la ligne en bas */
   left: 50%; /* Centrer la ligne par rapport au texte */
   height: 2px; /* Hauteur de la ligne */
-  background: #ff9500; /* Couleur de la ligne */
+  background: #ff7700; /* Couleur de la ligne */
   transition: width 0.3s ease, left 0.3s ease; /* Animation de transition pour l'effet de soulignement */
   width: 0; /* Largeur initiale de la ligne (invisible) */
 }
@@ -30,23 +30,40 @@
 }
 .custom-button {
   color: white;
-  background-color: hsl(35, 100%, 40%);
+  background-color: #ff7700;
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 5px;
   transition: background-color 0.3s ease;
   margin-left: 10px;
-  background: linear-gradient(to right, #ff8a00, #e52e71); /* Dégradé linéaire de gauche à droite */
+  background: linear-gradient(to right, #ff7700, #df3400); /* Dégradé linéaire de gauche à droite */
 }
 
 .custom-button:hover {
   background-color: #ff9500;
-  background: linear-gradient(to right, #e52e71, #ff8a00); /* Changement de direction du dégradé au survol */
+  background: linear-gradient(to right, #df3400, #ff7700); /* Changement de direction du dégradé au survol */
 }
 /* Définir la couleur du texte des icônes sur blanc */
 .navbar-nav .nav-link .fas {
   color: white;
 }
 .navbar-nav .nav-link:hover .fas {
-  color: #ff9500;
+  color: #ff7700;
+}
+
+.navbar-brand img:hover {
+  filter: brightness(150%);
+  transition: filter 0.3s ease; /* Ajoute une transition fluide */
+}
+
+.navbar .dropdown-item.nav-link.active::after {
+  background-color: #ff7700 !important;
+  color: white;
+}
+.navbar .dropdown-item.active:hover {
+  background-color: #ff7700;
+  color: white;
+}
+.orange-bg {
+  background-color: #ff7700 !important; /* Couleur orange */
 }

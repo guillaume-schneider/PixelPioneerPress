@@ -1,0 +1,129 @@
+.wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+}
+
+.play-button {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+}
+
+h2 {
+  font: 400 2.5em/1 'Roboto', sans-serif;
+  font-weight: bold; /* Makes the text bold */
+  margin-top: 15%; /* Adds space below the text */
+}
+
+.text {
+  color: #ff7700;
+  font-size: 24px;
+  text-align: center;
+  margin-top: 50px; /* Augmente la marge en haut */
+  position: relative; /* Ajoute une position relative */
+  top: 50px; /* Descend le texte */
+  font-weight: bold; /* Rend le texte en gras */
+  text-shadow: 0 0 10px #ff7700; /* Ajoute une ombre au texte pour le rendre luminescent */
+}
+
+a {
+  position: relative;
+  display: inline-block;
+  padding: 15px 30px;
+  color: #ff7700;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  text-decoration: none;
+  font-size: 24px;
+  overflow: hidden;
+  transition: 0.2s;
+}
+
+
+
+a:hover {
+  color: #8d5f36;
+  background: #ff7700;
+  box-shadow: 0 0 10px #ff7700, 0 0 40px #ff7700, 0 0 80px #ff7700;
+  transition-delay: 1s;
+}
+
+
+a span {
+  position: absolute;
+  display: block;
+}
+
+
+
+
+a span:nth-child(1) {
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #ff7700);
+}
+
+
+
+a:hover span:nth-child(1) {
+  left: 100%;
+  transition: 1s;
+}
+
+
+a span:nth-child(3) {
+  bottom: 0;
+  right: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(270deg, transparent, #ff7700);
+}
+
+a:hover span:nth-child(3) {
+  right: 100%;
+  transition: 1s;
+  transition-delay: 0.5s;
+}
+
+
+
+a span:nth-child(2) {
+  top: -100%;
+  right: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(180deg, transparent, #ff7700);
+}
+
+a:hover span:nth-child(2) {
+  top: 100%;
+  transition: 1s;
+  transition-delay: 0.25s;
+}
+
+
+
+a span:nth-child(4) {
+  bottom: -100%;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(360deg, transparent, #ff7700);
+}
+
+a:hover span:nth-child(4) {
+  bottom: 100%;
+  transition: 1s;
+  transition-delay: 0.75s;
+}

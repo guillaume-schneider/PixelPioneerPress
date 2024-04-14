@@ -10,7 +10,7 @@ import { Game } from 'src/models/Game';
 })
 export class GameDetailsComponent implements OnInit {
   gameId: number | undefined;
-  game!: Game;
+  game: Game | null = null; // Initialize game as null to handle undefined state
 
   constructor(private route: ActivatedRoute, private gameService: GameService) { }
 
@@ -22,9 +22,19 @@ export class GameDetailsComponent implements OnInit {
     });
   }
 
+  loading: boolean = true;
+
   loadGameDetails(id: number) {
-    this.gameService.getGameById(id).subscribe(game => {
-      this.game = game;
+    this.loading = true;
+    this.gameService.getGameById(id).subscribe({
+      next: (game) => {
+        this.game = game;
+        this.loading = false;
+      },
+      error: (error) => {
+        console.error('Failed to load game details:', error);
+        this.loading = false;
+      }
     });
   }
 }

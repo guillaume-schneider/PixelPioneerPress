@@ -1,18 +1,5 @@
-<div class="wrapper" [@cardAnimation]>
-  <div class="card-container">
-    <app-home-card [image]="games[0].image"></app-home-card>
-    <app-home-card [image]="games[1].image"></app-home-card>
-  </div>
-  <h1 class="text">Featured Game</h1>
-  <a href="#" class="play-button">
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    PLAY NOW
-  </a>
-  <div class="card-container">
-    <app-home-card [image]="games[2].image"></app-home-card>
-    <app-home-card [image]="games[3].image"></app-home-card>
+<div class="card-container">
+  <div *ngFor="let game of selectedGames" [@cardAnimation]>
+    <app-home-card [game]="game"></app-home-card>
   </div>
 </div>

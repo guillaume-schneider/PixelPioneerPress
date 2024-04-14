@@ -1,0 +1,18 @@
+<div class="wrapper" [@cardAnimation]>
+  <div class="card-container">
+    <app-home-card [game]="games[0]"></app-home-card>
+    <app-home-card [game]="games[1]"></app-home-card>
+  </div>
+  <h2>Chart your own adventure</h2>
+  <a (click)="openAuthDialog()" class="play-button">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    PLAY NOW
+  </a>
+  <div class="card-container">
+    <app-home-card [game]="games[2]"></app-home-card>
+    <app-home-card [game]="games[3]"></app-home-card>
+  </div>
+</div>

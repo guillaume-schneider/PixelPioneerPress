@@ -1,4 +1,0 @@
-#carouselExample .carousel-item img {
-  height: 0px; /* Hauteur fixe, ajustez selon vos besoins */
-  object-fit: cover; /* Pour conserver les proportions tout en remplissant l'espace disponible */
-}

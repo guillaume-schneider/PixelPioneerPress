@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from '../home/home.component';
 import { LoginComponent } from '../login/login.component';
@@ -12,10 +11,17 @@ import { MessageComponent } from '../message/message.component';
 import { AddFriendComponent } from '../add-friend/add-friend.component';
 import { WishlistComponent } from '../wishlist/wishlist.component';
 import { AuthGuard } from '../auth.guard';
+import { WelcomeComponent } from '../welcome/welcome.component';
+import { HomeGuard } from '../home.guard';
+import { SearchResultsComponent } from '../search-results/search-results.component';
+import { TopComponent } from '../top/top.component';
 
 const routes: Routes = [
-  {path:'', component: HomeComponent},
-  {path: 'top', component: CatalogueComponent},
+  {path: '', redirectTo: '/redirect', pathMatch: 'full' },
+  {path: 'redirect', component: HomeComponent, canActivate: [HomeGuard]},
+  {path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
+  {path: 'welcome', component: WelcomeComponent, canActivate: [HomeGuard]},
+  {path: 'top', component: TopComponent},
   {path: 'login', component: LoginComponent},
   {path: 'signup', component: SignupComponent},
   {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
@@ -24,6 +30,7 @@ const routes: Routes = [
   {path: 'reset-password', component: ResetPasswordComponent},
   {path: 'message', component: MessageComponent, canActivate: [AuthGuard]},
   {path: 'add-friend', component: AddFriendComponent, canActivate: [AuthGuard]},
+  { path: 'search-results', component: SearchResultsComponent }
 ];
 
 @NgModule({

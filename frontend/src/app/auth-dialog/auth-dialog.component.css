@@ -1,3 +1,7 @@
-:host {
-  padding: 1px;
+.form-container {
+  background-color: #101010;
+  color: white; /* Couleur du texte */
+}
+:host ::ng-deep mat-dialog-container {
+  background-color: transparent !important;
 }

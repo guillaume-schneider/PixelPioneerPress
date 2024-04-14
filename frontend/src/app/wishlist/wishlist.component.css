@@ -1,0 +1,7 @@
+.card-container {
+  margin: 20px; /* Ajoute une marge de 20 pixels autour du conteneur de cartes */
+}
+
+.card {
+  margin-bottom: 20px; /* Ajoute une marge de 20 pixels en bas de chaque carte */
+}

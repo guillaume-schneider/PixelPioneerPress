@@ -1,20 +1,27 @@
-<div class="container">
-  <div class="row">
-    <div class="col-md-6">
-      <img [src]="game.image" class="img-fluid" [alt]="game.title">
-    </div>
-    <div class="col-md-6">
-      <h2>{{ game.title }}</h2>
-      <p><strong>Developer:</strong> {{ game.developer }}</p>
-      <p><strong>Publisher:</strong> {{ game.publisher }}</p>
-      <p><strong>Genres:</strong> {{ game.genres.join(', ') }}</p>
-      <p><strong>Release Date:</strong> {{ game.release_date }}</p>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-12">
-      <h3>Description:</h3>
-      <p [innerHTML]="game.description"></p>
-    </div>
+
+<div *ngIf="game; else loadingOrErrorTemplate">
+  <div *ngIf="game" class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <img [src]="game.image" class="img-fluid" [alt]="game.title">
+        </div>
+        <div class="col-md-6">
+            <h2>{{ game.title }}</h2>
+            <p><strong>Developer:</strong> {{ game.developer }}</p>
+            <p><strong>Developer:</strong> {{ game.developer }}</p>
+            <p><strong>Publisher:</strong> {{ game.publisher }}</p>
+            <p><strong>Genres:</strong> {{ game.genres.join(', ') }}</p>
+            <p><strong>Release Date:</strong> {{ game.release_date }}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <h3>Description:</h3>
+            <p [innerHTML]="game.description"></p>
+          </div>
+        </div>
   </div>
 </div>
+<ng-template #loadingOrErrorTemplate>
+    <p>Game details are currently unavailable. Please check back later.</p>
+</ng-template>

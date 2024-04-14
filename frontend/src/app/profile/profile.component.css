@@ -1,0 +1,4 @@
+.btn-secondary {
+  background-color: #6c757d  !important; /* Couleur plus sombre pour le bouton Annuler */
+  margin-left: 10px;
+}

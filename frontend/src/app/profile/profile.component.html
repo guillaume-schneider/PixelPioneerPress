@@ -7,7 +7,7 @@
           <div *ngIf="!isEditMode">
             <p><strong>Nom d'utilisateur :</strong> {{ user.displayName }}</p>
             <p><strong>Adresse e-mail :</strong> {{ user.email }}</p>
-            <button class="btn btn-primary" (click)="toggleEditMode()">Modifier</button>
+            <button class="btn btn-primary" (click)="toggleEditMode()" matRipple matRippleColor="#ff7700">Modifier</button>
           </div>
           <div *ngIf="isEditMode">
             <div class="mb-3">
@@ -20,8 +20,8 @@
               <input type="email" id="email" class="form-control" [(ngModel)]="newEmail" name="email">
               <div *ngIf="emailError" class="text-danger">{{ emailError }}</div>
             </div>
-            <button class="btn btn-primary" (click)="updateProfile()">Enregistrer</button>
-            <button class="btn btn-secondary" (click)="toggleEditMode()">Annuler</button>
+            <button class="btn btn-primary" (click)="updateProfile()" matRipple matRippleColor="#ff7700">Enregistrer</button>
+            <button class="btn btn-secondary" (click)="toggleEditMode()" matRipple matRippleColor="#ff7700">Annuler</button>
           </div>
         </div>
       </div>
