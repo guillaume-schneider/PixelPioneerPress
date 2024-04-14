@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { AuthDialogComponent } from './auth-dialog/auth-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -15,24 +16,32 @@ export class AuthService {
   constructor(
     private afAuth: AngularFireAuth,
     private dialog: MatDialog,
-    private db: AngularFireDatabase
+    private db: AngularFireDatabase,
+    private firestore: AngularFirestore
   ) {
     this.user$ = afAuth.authState;
   }
 
-  async signUp(email: string, password: string, username: string) {
-    try {
-      const credential = await this.afAuth.createUserWithEmailAndPassword(email, password);
-
-      const usernameTag = await this.generateUniqueUsernameTag(username);
-
-      if (credential.user) {
-        await credential.user.updateProfile({ displayName: username, usernameTag: usernameTag } as { displayName?: string | null | undefined; photoURL?: string | null | undefined; usernameTag?: string });
-      }
-
-    } catch (error) {
-      throw error;
-    }
+  registerUser(email: string, password: string, additionalData: any): Promise<void> {
+    return this.afAuth.createUserWithEmailAndPassword(email, password)
+      .then((result) => {
+        if (result.user) {
+          console.log('Utilisateur créé avec succès', result.user);
+          return this.firestore.collection('users').doc(result.user.uid).set({
+            email: result.user.email,
+            username: additionalData
+          });
+        } else {
+          throw new Error('No user data available after registration.');
+        }
+      })
+      .then(() => {
+        console.log('Données utilisateur enregistrées dans Firestore');
+      })
+      .catch(error => {
+        console.error('Erreur lors de l\'inscription ou de l\'enregistrement des données:', error);
+        throw error; // Correctly throw the error to be caught by the caller
+      });
   }
 
   signIn(email: string, password: string) {
@@ -57,6 +66,10 @@ export class AuthService {
       width: '850px',
       panelClass: 'custom-modalbox',
     });
+  }
+
+  updateUserData(uid: string, data: Partial<firebase.User>) {
+    return this.firestore.doc(`users/${uid}`).update(data);
   }
 
   async generateUniqueUsernameTag(username: string): Promise<string> {

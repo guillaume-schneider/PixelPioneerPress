@@ -25,7 +25,7 @@
         </li>
 
         <li class="nav-item" *ngIf="(authService.user$ | async)">
-          <a class="nav-link" routerLink="/wishlist"><i class="fas fa-envelope fa-lg"></i></a>
+          <a class="nav-link" routerLink="/messages"><i class="fas fa-envelope fa-lg"></i></a>
         </li>
 
         <li class="nav-item dropdown" *ngIf="(authService.user$ | async) as user">

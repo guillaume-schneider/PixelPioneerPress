@@ -2,6 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import firebase from 'firebase/compat/app';
 
+interface UserUpdate {
+  displayName?: string;
+  email?: string;
+}
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -21,11 +26,7 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.authService.user$.subscribe(user => {
       this.user = user;
-
-      if (!user) {
-        return;
-      }
-
+      if (!user) return;
       this.newDisplayName = user.displayName;
       this.newEmail = user.email;
     });
@@ -36,45 +37,56 @@ export class ProfileComponent implements OnInit {
   }
 
   updateProfile() {
-    if (!this.user) {
-      return;
+    if (!this.user) return;
+    const updates: UserUpdate = {};
+
+    if (this.newDisplayName !== this.user.displayName) {
+      if (this.newDisplayName !== null) {
+        this.user.updateProfile({ displayName: this.newDisplayName })
+          .then(() => {
+            if (this.newDisplayName !== this.user?.displayName) {
+              console.log('Display name updated successfully');
+              updates.displayName = this.newDisplayName ?? undefined;
+            }
+            this.displayNameError = null;
+          })
+          .catch(error => {
+            console.error('Error updating display name:', error);
+            this.displayNameError = error.message;
+          });
+      }
     }
 
-    // Mettre à jour le nom d'utilisateur
-    this.user.updateProfile({ displayName: this.newDisplayName })
-      .then(() => {
-        console.log('Nom d\'utilisateur mis à jour avec succès');
-        this.displayNameError = null;
-      })
-      .catch((error: any) => {
-        console.error('Erreur lors de la mise à jour du nom d\'utilisateur:', error);
-        this.displayNameError = error.message;
-      });
-
-    if (this.newEmail) {
-
+    if (this.newEmail && this.newEmail !== this.user.email) {
       this.user.updateEmail(this.newEmail)
         .then(() => {
-          console.log('Adresse e-mail mise à jour avec succès');
+          if (this.newEmail !== this.user?.email) {
+            console.log('Email updated successfully');
+            updates.email = this.newEmail ?? undefined;
+          }
           this.emailError = null;
         })
-        .catch((error: any) => {
-          console.error('Erreur lors de la mise à jour de l\'adresse e-mail:', error);
+        .catch(error => {
+          console.error('Error updating email:', error);
           this.emailError = error.message;
         });
     }
 
+    if (Object.keys(updates).length > 0) {
+      this.authService.updateUserData(this.user.uid, updates).then(() => {
+        console.log('Firestore user data updated');
+      }).catch(error => {
+        console.error('Error updating Firestore user data:', error);
+      });
+    }
+
     this.checkErrors();
-    console.log('hasError:', this.hasError);
     if (!this.hasError) {
       this.isEditMode = false;
     }
-
   }
 
   checkErrors() {
-    console.log('displayNameError:', this.displayNameError);
-    console.log('emailError:', this.emailError);
     this.hasError = !!this.displayNameError || !!this.emailError;
   }
 }

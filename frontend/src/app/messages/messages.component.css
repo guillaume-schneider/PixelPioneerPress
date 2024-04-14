@@ -1,0 +1,31 @@
+.messages-container {
+  width: 300px;
+  height: 500px;
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+}
+
+.conversations-list .conversation {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+}
+
+.conversations-list .conversation:last-child {
+  border-bottom: none;
+}
+
+.friend-name {
+  font-weight: bold;
+}
+
+.last-message {
+  color: #666;
+  font-size: 0.8em;
+}

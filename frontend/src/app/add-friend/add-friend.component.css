@@ -1,0 +1,27 @@
+.search-container {
+  margin: 20px;
+  width: 300px;
+}
+
+.search-container input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+}
+
+.search-container ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.search-container li {
+  padding: 8px;
+  background-color: #f0f0f0;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+}
+
+.search-container li:hover {
+  background-color: #e9e9e9;
+}

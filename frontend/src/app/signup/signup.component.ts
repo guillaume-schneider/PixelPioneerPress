@@ -9,9 +9,9 @@ import { Router } from '@angular/router';
 })
 export class SignupComponent implements OnInit {
 
-  @Input() username: string = '';
-  @Input() password: string = '';
-  @Input() email: string = '';
+  email: string = '';
+  password: string = '';
+  username: string = '';
   errorMessage: string = '';
 
   constructor(private authService: AuthService, private router: Router) { }
@@ -21,11 +21,11 @@ export class SignupComponent implements OnInit {
 
   async signUp() {
     try {
-      await this.authService.signUp(this.email, this.password, this.username);
-      this.router.navigateByUrl('/');
+      await this.authService.registerUser(this.email, this.password, this.username);
+      this.router.navigateByUrl('/home');
     } catch (error: any) {
-      this.errorMessage = error.message;
+      this.errorMessage = error.message; // Ensure the error message is displayed
+      console.log('Error:', error);
     }
   }
-
 }

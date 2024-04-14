@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { FriendService } from '../friend.service';
-import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-add-friend',
@@ -8,25 +7,43 @@ import { UserService } from '../user.service';
   styleUrls: ['./add-friend.component.css']
 })
 export class AddFriendComponent {
-  friendId: string = '';
-  searchQuery: string = '';
-  searchResults: any[] = [];
+  searchText = '';
+  users: any[] = [];  // Remplacer 'any' par le type approprié si disponible
+  filteredUsers: any[] = [];
 
-  constructor(private friendService: FriendService, private userService: UserService) {}
-
-  addFriend(userId: any) {
-    this.friendService.addFriend(userId, this.friendId);
-    this.friendId = ''; // Clear input after adding friend
+  constructor(private friendService: FriendService) {
+    this.loadAllUsers();
   }
 
-  searchUsers(): void {
-    if (this.searchQuery.trim() === '') {
-      // Ne rien faire si la requête de recherche est vide
+  loadAllUsers() {
+    this.friendService.getAllUsers().subscribe(users => {
+      this.users = users;
+      console.log('Utilisateurs:', users);
+      this.filteredUsers = users;
+    });
+  }
+
+  searchUsers() {
+    console.log(this.users)
+    if (!this.searchText.trim()) {
+      this.filteredUsers = [];
       return;
     }
+    this.filteredUsers = this.users.filter(user =>
+      user.username.toLowerCase().includes(this.searchText.toLowerCase())
+    );
+    console.log('Utilisateurs filtrés:', this.filteredUsers);
+  }
 
-    this.userService.searchUsers(this.searchQuery.trim()).subscribe(results => {
-      this.searchResults = results;
+  addFriend(user: any) {
+    this.friendService.addFriend(user.id).subscribe(result => {
+      if (result === 'Already friends') {
+        alert('Vous êtes déjà amis !');
+      } else {
+        alert('Ami ajouté avec succès !');
+      }
+    }, error => {
+      console.error('Erreur lors de l\'ajout de l\'ami:', error);
     });
   }
 }

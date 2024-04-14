@@ -1,27 +1,25 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { CanActivate } from '@angular/router';
 import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class HomeGuard implements CanActivate {
-  constructor(private authService: AuthService, private router: Router) {}
+export class ReverseAuthGuard implements CanActivate {
+  constructor(private authService: AuthService) {}
 
-  canActivate(): Promise<boolean> {
+  async canActivate(): Promise<boolean> {
     return new Promise<boolean>((resolve) => {
       setTimeout(() => {
         this.authService.isAuthenticated().then(isAuthenticated => {
           console.log('isAuthenticated', isAuthenticated);
           if (isAuthenticated) {
-            resolve(true);
-            this.router.navigate(['/home']);
-          } else {
             resolve(false);
-            this.router.navigate(['/welcome']);
+          } else {
+            resolve(true);
           }
         });
-      }, 300);
+      }, 350);
     });
   }
 }

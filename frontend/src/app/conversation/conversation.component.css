@@ -1,0 +1,38 @@
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  height: 400px;
+}
+
+.messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px;
+}
+
+.message {
+  margin: 5px;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: lightgray;
+}
+
+.mine {
+  background-color: #007bff;
+  color: white;
+  align-self: flex-end;
+}
+
+.message-input {
+  display: flex;
+}
+
+.message-input input {
+  flex: 1;
+  padding: 10px;
+  margin-right: 5px;
+}
+
+.message-input button {
+  padding: 10px;
+}

@@ -15,12 +15,15 @@ import { WelcomeComponent } from '../welcome/welcome.component';
 import { HomeGuard } from '../home.guard';
 import { SearchResultsComponent } from '../search-results/search-results.component';
 import { TopComponent } from '../top/top.component';
+import { MessagesComponent } from '../messages/messages.component';
+import { ConversationComponent } from '../conversation/conversation.component';
+import { ReverseAuthGuard } from '../reverse-auth.guard';
 
 const routes: Routes = [
   {path: '', redirectTo: '/redirect', pathMatch: 'full' },
   {path: 'redirect', component: HomeComponent, canActivate: [HomeGuard]},
   {path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
-  {path: 'welcome', component: WelcomeComponent, canActivate: [HomeGuard]},
+  {path: 'welcome', component: WelcomeComponent, canActivate: [ReverseAuthGuard]},
   {path: 'top', component: TopComponent},
   {path: 'login', component: LoginComponent},
   {path: 'signup', component: SignupComponent},
@@ -29,8 +32,10 @@ const routes: Routes = [
   {path: 'wishlist', component: WishlistComponent, canActivate: [AuthGuard]},
   {path: 'reset-password', component: ResetPasswordComponent},
   {path: 'message', component: MessageComponent, canActivate: [AuthGuard]},
+  { path: 'conversation/:id', component: ConversationComponent },
+  {path: 'messages', component: MessagesComponent, canActivate: [AuthGuard]},
   {path: 'add-friend', component: AddFriendComponent, canActivate: [AuthGuard]},
-  { path: 'search-results', component: SearchResultsComponent }
+  {path: 'search-results', component: SearchResultsComponent }
 ];
 
 @NgModule({

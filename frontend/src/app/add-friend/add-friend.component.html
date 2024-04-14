@@ -1,14 +1,8 @@
-<div>
-  <input type="text" [(ngModel)]="searchQuery" placeholder="Rechercher des amis...">
-  <button (click)="searchUsers()">Rechercher</button>
-</div>
-
-<div *ngIf="searchResults.length > 0">
-  <h2>Résultats de la recherche :</h2>
-  <ul>
-    <li *ngFor="let user of searchResults">
-      {{ user.username }} ({{ user.tag }})
-      <button (click)="addFriend(user)">Ajouter comme ami</button>
-    </li>
+<div class="search-container">
+  <input type="text" [(ngModel)]="searchText" (ngModelChange)="searchUsers()" placeholder="Recherche d'amis...">
+  <ul *ngIf="filteredUsers.length > 0">
+      <li *ngFor="let user of filteredUsers" (click)="addFriend(user)">
+          {{ user.username }}
+      </li>
   </ul>
 </div>

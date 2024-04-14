@@ -41,6 +41,9 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import { SearchBarComponent } from './search-bar/search-bar.component';
 import { SearchResultsComponent } from './search-results/search-results.component';
 import { TopComponent } from './top/top.component';
+import { MessagesComponent } from './messages/messages.component';
+import { ConversationComponent } from './conversation/conversation.component';
+import { NewConversationComponent } from './new-conversation/new-conversation.component';
 
 
 @NgModule({
@@ -68,7 +71,10 @@ import { TopComponent } from './top/top.component';
     WelcomeComponent,
     SearchBarComponent,
     SearchResultsComponent,
-    TopComponent
+    TopComponent,
+    MessagesComponent,
+    ConversationComponent,
+    NewConversationComponent
   ],
   imports: [
     BrowserModule,
