@@ -21,6 +21,7 @@ export class SignupComponent implements OnInit {
 
   async signUp() {
     try {
+      this.errorMessage = '';
       await this.authService.registerUser(this.email, this.password, this.username);
       this.router.navigateByUrl('/home');
     } catch (error: any) {
