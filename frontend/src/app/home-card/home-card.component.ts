@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { trigger, style, animate, transition, query, stagger } from '@angular/animations';
 import { Game } from 'src/models/Game';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';

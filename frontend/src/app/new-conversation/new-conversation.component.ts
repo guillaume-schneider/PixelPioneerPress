@@ -9,9 +9,11 @@ export class NewConversationComponent {
   constructor(private conversationService: ConversationService) {}
 
   startConversation(userIds: string[]) {
-    const conversationId = this.conversationService.createConversation(userIds);
-    if (conversationId) {
-      this.conversationService.sendMessage(conversationId, userIds[0], 'Bonjour ! Comment vas-tu ?');
-    }
+    this.conversationService.createConversation(userIds).
+    then((conversationId: string | null) => {
+      if (conversationId) {
+        this.conversationService.sendMessage(conversationId, userIds[0], 'Bonjour ! Comment vas-tu ?');
+      }
+    })
   }
 }

@@ -2,6 +2,9 @@ import { Component, OnInit, Input } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 
+import { doc, Firestore, setDoc, Timestamp, getFirestore } from '@angular/fire/firestore';
+
+
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',

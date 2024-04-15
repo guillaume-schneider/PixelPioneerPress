@@ -1,11 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
-import firebase from 'firebase/compat/app';
-
-interface UserUpdate {
-  displayName?: string;
-  email?: string;
-}
+import { User, updateProfile, updateEmail } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-profile',
@@ -13,7 +8,7 @@ interface UserUpdate {
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-  user!: firebase.User | null;
+  user!: User | null;
   newDisplayName!: string | null;
   newEmail!: string | null;
   isEditMode: boolean = false;
@@ -24,12 +19,15 @@ export class ProfileComponent implements OnInit {
   constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.authService.user$.subscribe(user => {
+    this.authService.getCurrentUser()
+    .then((user: any) => {
       this.user = user;
-      if (!user) return;
-      this.newDisplayName = user.displayName;
-      this.newEmail = user.email;
-    });
+    })
+
+    if (this.user) {
+      this.newDisplayName = this.user.displayName;
+      this.newEmail = this.user.email;
+    }
   }
 
   toggleEditMode() {
@@ -38,46 +36,30 @@ export class ProfileComponent implements OnInit {
 
   updateProfile() {
     if (!this.user) return;
-    const updates: UserUpdate = {};
+    const updates: { displayName?: string, email?: string } = {};
 
     if (this.newDisplayName !== this.user.displayName) {
-      if (this.newDisplayName !== null) {
-        this.user.updateProfile({ displayName: this.newDisplayName })
-          .then(() => {
-            if (this.newDisplayName !== this.user?.displayName) {
-              console.log('Display name updated successfully');
-              updates.displayName = this.newDisplayName ?? undefined;
-            }
-            this.displayNameError = null;
-          })
-          .catch(error => {
-            console.error('Error updating display name:', error);
-            this.displayNameError = error.message;
-          });
-      }
+      updateProfile(this.user, { displayName: this.newDisplayName ?? undefined })
+        .then(() => {
+          console.log('Display name updated successfully');
+          this.displayNameError = null;
+        })
+        .catch(error => {
+          console.error('Error updating display name:', error);
+          this.displayNameError = error.message;
+        });
     }
 
     if (this.newEmail && this.newEmail !== this.user.email) {
-      this.user.updateEmail(this.newEmail)
+      updateEmail(this.user, this.newEmail)
         .then(() => {
-          if (this.newEmail !== this.user?.email) {
-            console.log('Email updated successfully');
-            updates.email = this.newEmail ?? undefined;
-          }
+          console.log('Email updated successfully');
           this.emailError = null;
         })
         .catch(error => {
           console.error('Error updating email:', error);
           this.emailError = error.message;
         });
-    }
-
-    if (Object.keys(updates).length > 0) {
-      this.authService.updateUserData(this.user.uid, updates).then(() => {
-        console.log('Firestore user data updated');
-      }).catch(error => {
-        console.error('Error updating Firestore user data:', error);
-      });
     }
 
     this.checkErrors();

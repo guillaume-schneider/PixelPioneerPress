@@ -1,6 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-login',
@@ -8,30 +8,24 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  email = '';  // No longer using @Input for form fields
+  password = '';
+  errorMessage = '';
 
-  @Input() username!:string;
-  @Input() password!:string;
-  @Input() email!:string;
-  errorMessage: string = '';
-
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
   }
 
-  constructor(private afAuth: AngularFireAuth, private router: Router) {}
-
   signIn() {
-    this.afAuth.signInWithEmailAndPassword(this.email, this.password)
-      .then((userCredential) => {
-        // Sign-in successful
-        const user = userCredential.user;
-        console.log('User signed in:', user);
+    this.authService.signIn(this.email, this.password)
+      .then(() => {
+        // Navigate on successful sign in
         this.router.navigateByUrl('/');
       })
-      .catch((error) => {
-        // Handle sign-in errors
+      .catch(error => {
+        // Handle authentication errors
         console.error('Sign-in error:', error);
-        // Mettre à jour le message d'erreur avec le message d'erreur approprié
         this.errorMessage = error.message;
       });
   }

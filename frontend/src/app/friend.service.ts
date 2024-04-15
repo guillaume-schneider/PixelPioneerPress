@@ -1,44 +1,66 @@
 import { Injectable } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { AngularFireDatabase } from '@angular/fire/compat/database';
-import { Observable, of } from 'rxjs';
-import { catchError, first, map, switchMap } from 'rxjs/operators';
+import { Auth, getAuth, onAuthStateChanged } from '@angular/fire/auth';
+import { Database, getDatabase, ref, push, set, get, child, update } from '@angular/fire/database';
+import { from, Observable } from 'rxjs';
+import { first, switchMap, catchError, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FriendService {
-  constructor(private db: AngularFireDatabase, private auth: AngularFireAuth) { }
+  private auth: Auth;
+  private db: Database;
+
+  constructor() {
+    this.auth = getAuth();
+    this.db = getDatabase();
+  }
 
   // Récupération de tous les utilisateurs
-  getAllUsers() {
-    return this.db.list('/users').valueChanges();
+  getAllUsers(): Observable<any[]> {
+    const usersRef = ref(this.db, '/users');
+    return from(get(usersRef)).pipe(
+      map(snapshot => snapshot.val())
+    );
   }
 
   getFriends(userId: string): Observable<string[]> {
-    return this.db.list<string>(`/users/${userId}/friends`).valueChanges();
+    const friendsRef = ref(this.db, `/users/${userId}/friends`);
+    return from(get(friendsRef)).pipe(
+      map(snapshot => snapshot.val() || [])
+    );
   }
 
   addFriend(friendId: string): Observable<any> {
-    return this.auth.user.pipe(
-      first(),
-      switchMap(user => {
-        if (!user) return of('User not logged in'); // Handling not logged in case
-        const uid = user.uid;
-        const friendsRef = this.db.object<string[]>(`/users/${uid}/friends`).valueChanges(); // Specify that we expect a string array
-        return friendsRef.pipe(
-          first(),
-          switchMap((friends: string[] | null) => { // Properly type as possibly null
-            if (friends && friends.includes(friendId)) {
-              return of('Already friends'); // Handle already friends case
+    return new Observable(observer => {
+      onAuthStateChanged(this.auth, (user) => {
+        if (!user) {
+          observer.next('User not logged in');
+          observer.complete();
+        } else {
+          const uid = user.uid;
+          const friendsRef = ref(this.db, `/users/${uid}/friends`);
+          get(friendsRef).then(friendsSnapshot => {
+            const friends = friendsSnapshot.val() || [];
+            if (friends.includes(friendId)) {
+              observer.next('Already friends');
+              observer.complete();
+            } else {
+              const updatedFriends = [...friends, friendId];
+              update(ref(this.db, `/users/${uid}`), { friends: updatedFriends }).then(() => {
+                observer.next('Friend added');
+                observer.complete();
+              }).catch(error => {
+                observer.error(`Failed to add friend: ${error}`);
+              });
             }
-            const updatedFriends = friends ? [...friends, friendId] : [friendId];
-            return this.db.object(`/users/${uid}`).update({ friends: updatedFriends });
-          }),
-          catchError(error => of(`Failed to add friend: ${error}`)) // Error handling
-        );
-      }),
-      catchError(error => of(`Failed to process friend addition: ${error}`))
-    );
+          }).catch(error => {
+            observer.error(`Failed to fetch friends: ${error}`);
+          });
+        }
+      }, error => {
+        observer.error(`Failed to process friend addition: ${error}`);
+      });
+    });
   }
 }

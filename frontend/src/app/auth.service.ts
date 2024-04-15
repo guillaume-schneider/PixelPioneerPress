@@ -1,59 +1,82 @@
 import { Injectable } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
-import firebase from 'firebase/compat/app';
+// import firebase from 'firebase/compat/app';
 import { Observable } from 'rxjs';
 import { AuthDialogComponent } from './auth-dialog/auth-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-import { AngularFireDatabase } from '@angular/fire/compat/database';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+
+// import { AngularFireAuth } from '@angular/fire/compat/auth';
+// import { AngularFireDatabase } from '@angular/fire/compat/database';
+// import { AngularFirestore } from '@angular/fire/compat/firestore';
+
+import { Auth, authState, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, User, UserCredential } from '@angular/fire/auth';
+import { Firestore, doc, setDoc, updateDoc, Timestamp } from '@angular/fire/firestore';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  user$: Observable<firebase.User | null>;
+  user$: Observable<User | null>;
 
   constructor(
-    private afAuth: AngularFireAuth,
-    private dialog: MatDialog,
-    private db: AngularFireDatabase,
-    private firestore: AngularFirestore
+    private auth: Auth,
+    private firestore: Firestore,
+    private dialog: MatDialog
   ) {
-    this.user$ = afAuth.authState;
+    this.user$ = authState(this.auth);
   }
 
-  registerUser(email: string, password: string, additionalData: any): Promise<void> {
-    return this.afAuth.createUserWithEmailAndPassword(email, password)
-      .then((result) => {
-        if (result.user) {
-          console.log('Utilisateur créé avec succès', result.user);
-          return this.firestore.collection('users').doc(result.user.uid).set({
-            email: result.user.email,
-            username: additionalData
+  getCurrentUserUid(): string | null {
+    const user = this.auth.currentUser;
+    return user ? user.uid : null; // Directly access `uid` if user is not null
+  }
+
+  async registerUser(email: string, password: string, additionalData: any): Promise<void> {
+    let userCredential = null;
+    try {
+      // Step 1: Create user in Firebase Authentication
+      userCredential = await createUserWithEmailAndPassword(this.auth, email, password);
+
+      // Check if the user was created
+      if (userCredential.user) {
+        try {
+          // Step 2: Attempt to create the user document in Firestore
+          await setDoc(doc(this.firestore, 'users', userCredential.user.uid), {
+            email: userCredential.user.email,
+            username: additionalData,
+            profilePicture: '',
+            createdAt: Timestamp.now()
           });
-        } else {
-          throw new Error('No user data available after registration.');
+          console.log('User data written successfully to Firestore');
+        } catch (error) {
+          // Step 3: If Firestore fails, delete the user from Firebase Authentication
+          console.error('Failed to write data to Firestore:', error);
+          if (userCredential.user) {
+            await userCredential.user.delete();
+            console.log('User deleted from Firebase Authentication due to Firestore failure');
+          }
+          throw new Error('Registration failed, user was not added to Firestore.');
         }
-      })
-      .then(() => {
-        console.log('Données utilisateur enregistrées dans Firestore');
-      })
-      .catch(error => {
-        console.error('Erreur lors de l\'inscription ou de l\'enregistrement des données:', error);
-        throw error; // Correctly throw the error to be caught by the caller
-      });
+      } else {
+          throw new Error('No user data available after registration.');
+      }
+    } catch (error) {
+    // Log and rethrow the error if the authentication itself fails
+    console.error('Registration failed:', error);
+    throw error;
+    }
   }
 
-  signIn(email: string, password: string) {
-    return this.afAuth.signInWithEmailAndPassword(email, password);
+  signIn(email: string, password: string): Promise<UserCredential> {
+    return signInWithEmailAndPassword(this.auth, email, password);
   }
 
-  signOut() {
-    return this.afAuth.signOut();
+  signOut(): Promise<void> {
+    return signOut(this.auth);
   }
 
-  async getCurrentUser(): Promise<firebase.User | null> {
-    return this.afAuth.currentUser;
+  async getCurrentUser(): Promise<User | null> {
+    return this.auth.currentUser;
   }
 
   async isAuthenticated(): Promise<boolean> {
@@ -68,33 +91,34 @@ export class AuthService {
     });
   }
 
-  updateUserData(uid: string, data: Partial<firebase.User>) {
-    return this.firestore.doc(`users/${uid}`).update(data);
+  updateUserData(uid: string, data: Partial<{ email: string; username: string; }>): Promise<void> {
+    return updateDoc(doc(this.firestore, 'users', uid), data);
   }
 
-  async generateUniqueUsernameTag(username: string): Promise<string> {
-    const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    const numbers = '0123456789';
 
-    username = username.trim().toUpperCase();
+  // async generateUniqueUsernameTag(username: string): Promise<string> {
+  //   const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  //   const numbers = '0123456789';
 
-    const usernamePrefix = username.substr(0, Math.min(username.length, 3));
+  //   username = username.trim().toUpperCase();
 
-    let tag = '';
+  //   const usernamePrefix = username.substr(0, Math.min(username.length, 3));
 
-    tag += usernamePrefix;
+  //   let tag = '';
 
-    for (let i = 0; i < 1; i++) {
-      const randomNumber = numbers.charAt(Math.floor(Math.random() * numbers.length));
-      tag += randomNumber;
-    }
+  //   tag += usernamePrefix;
 
-    const snapshot = await this.db.list('users', ref => ref.orderByChild('usernameTag').equalTo(tag)).valueChanges().toPromise();
-    if (snapshot && snapshot.length > 0) {
-      return this.generateUniqueUsernameTag(username);
-    }
+  //   for (let i = 0; i < 1; i++) {
+  //     const randomNumber = numbers.charAt(Math.floor(Math.random() * numbers.length));
+  //     tag += randomNumber;
+  //   }
 
-    return tag;
-  }
+  //   const snapshot = await this.db.list('users', ref => ref.orderByChild('usernameTag').equalTo(tag)).valueChanges().toPromise();
+  //   if (snapshot && snapshot.length > 0) {
+  //     return this.generateUniqueUsernameTag(username);
+  //   }
+
+  //   return tag;
+  // }
 
 }
