@@ -4,66 +4,96 @@
   background-color: rgba(0, 0, 0, 0.75) !important;
   color: white !important;
   height: 90px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px; /* Ajout d'un padding pour un meilleur alignement */
+}
+
+/* Menu hamburger pour petits écrans */
+.navbar-toggler {
+  display: none; /* Caché par défaut */
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    height: auto; /* Hauteur ajustée pour les petits écrans */
+    flex-direction: column; /* Disposition en colonne pour les éléments de la navbar */
+  }
+
+  .navbar-nav {
+    width: 100%; /* Pleine largeur pour les éléments de navigation */
+  }
+
+  .navbar-toggler {
+    display: block; /* Afficher le bouton du menu hamburger */
+  }
+
+  .collapsed-menu {
+    display: none; /* Menu initialement caché */
+  }
+
+  .navbar-toggler.active + .collapsed-menu {
+    display: flex; /* Affichage du menu une fois activé */
+    flex-direction: column; /* Éléments de menu en colonne */
+    width: 100%; /* Pleine largeur */
+  }
+
+  .nav-link, .custom-button {
+    padding: 10px; /* Plus de padding pour une meilleure accessibilité */
+    text-align: center; /* Centrage du texte pour une meilleure lisibilité */
+    width: 100%; /* Pleine largeur pour les liens */
+  }
 }
 
 .nav-link.active {
   font-family: 'Roboto', sans-serif !important;
   font-size: large;
   color: rgb(220, 220, 220);
-  position: relative; /* Ajoutez une position relative pour les éléments actifs */
+  position: relative;
 }
 
-.nav-link.active::after {
-  content: ""; /* Ajoutez un contenu vide pour le pseudo-élément */
-  position: absolute; /* Positionnement absolu pour placer la ligne en bas */
-  bottom: -26px; /* Positionner la ligne en bas */
-  left: 50%; /* Centrer la ligne par rapport au texte */
-  height: 2px; /* Hauteur de la ligne */
-  background: #ff7700; /* Couleur de la ligne */
-  transition: width 0.3s ease, left 0.3s ease; /* Animation de transition pour l'effet de soulignement */
-  width: 0; /* Largeur initiale de la ligne (invisible) */
+.nav-link.active::after, .navbar .dropdown-item.nav-link.active::after {
+  content: "";
+  position: absolute;
+  bottom: -26px;
+  left: 50%;
+  height: 2px;
+  background: #ff7700;
+  transition: width 0.3s ease, left 0.3s ease;
+  width: 0;
 }
 
-.nav-link.active:hover::after {
-  width: 100%; /* Largeur de la ligne lors du survol */
-  left: 0; /* Positionner la ligne à gauche lors du survol */
+.nav-link.active:hover::after, .navbar .dropdown-item.active:hover {
+  width: 100%;
+  left: 0;
 }
+
 .custom-button {
   color: white;
-  background-color: #ff7700;
+  background: linear-gradient(to right, #ff7700, #df3400);
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 5px;
   transition: background-color 0.3s ease;
   margin-left: 10px;
-  background: linear-gradient(to right, #ff7700, #df3400); /* Dégradé linéaire de gauche à droite */
 }
 
 .custom-button:hover {
   background-color: #ff9500;
-  background: linear-gradient(to right, #df3400, #ff7700); /* Changement de direction du dégradé au survol */
+  background: linear-gradient(to right, #df3400, #ff7700);
 }
-/* Définir la couleur du texte des icônes sur blanc */
-.navbar-nav .nav-link .fas {
+
+/* Styles pour les icônes */
+.navbar-nav .nav-link .fas, .navbar-brand img:hover {
   color: white;
+  transition: color 0.3s ease, filter 0.3s ease;
 }
+
 .navbar-nav .nav-link:hover .fas {
   color: #ff7700;
 }
 
 .navbar-brand img:hover {
   filter: brightness(150%);
-  transition: filter 0.3s ease; /* Ajoute une transition fluide */
-}
-
-.navbar .dropdown-item.nav-link.active::after {
-  background-color: #ff7700 !important;
-  color: white;
-}
-.navbar .dropdown-item.active:hover {
-  background-color: #ff7700;
-  color: white;
-}
-.orange-bg {
-  background-color: #ff7700 !important; /* Couleur orange */
 }

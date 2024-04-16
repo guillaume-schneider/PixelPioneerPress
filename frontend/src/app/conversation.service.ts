@@ -1,35 +1,31 @@
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase } from '@angular/fire/compat/database';
+import { Firestore, collection, onSnapshot, query as fsQuery, where } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
+import { AuthService } from './auth.service';
+import { setDoc } from 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ConversationService {
 
-  constructor(private db: AngularFireDatabase) { }
+  constructor(private firestore: Firestore, private authService: AuthService) {}
 
-  // Création d'une nouvelle conversation
-  createConversation(participants: string[]): string | null {
-    const newConversationRef = this.db.list('conversations').push({
-      participants: participants.reduce((acc, cur) => ({ ...acc, [cur]: true }), {}),
-      createdAt: new Date().getTime()
+  async listenForConversations(userId: string): Promise<any[]> {
+    return new Promise((resolve, reject) => {
+      const conversationsRef = collection(this.firestore, 'conversations');
+      const q = fsQuery(conversationsRef, where('participants', 'array-contains', userId));
+
+      onSnapshot(q, (snapshot) => {
+        const updatedConversations = snapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        }));
+        resolve(updatedConversations);
+      }, error => {
+        console.error("Error listening to conversations:", error);
+        reject(error);
+      });
     });
-    return newConversationRef.key;  // Retourne l'ID de la nouvelle conversation
-  }
-
-  // Envoi d'un message
-  sendMessage(conversationId: string, senderId: string, message: string) {
-    const timestamp = new Date().getTime();
-    this.db.list(`messages/${conversationId}`).push({
-      senderId: senderId,
-      text: message,
-      timestamp: timestamp
-    });
-  }
-
-  // Récupération des messages d'une conversation
-  getMessages(conversationId: string): Observable<any[]> {
-    return this.db.list(`messages/${conversationId}`).valueChanges();
   }
 }

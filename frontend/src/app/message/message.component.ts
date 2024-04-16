@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
-import firebase from 'firebase/compat/app';
-import { AuthService } from '../auth.service';
+import { ActivatedRoute } from '@angular/router';
 import { MessageService } from '../message.service';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-message',
@@ -10,38 +9,42 @@ import { MessageService } from '../message.service';
   styleUrls: ['./message.component.css']
 })
 export class MessageComponent implements OnInit {
-  conversationId: string = 'conversation1'; // ID de la conversation (peut être dynamique)
+  currentConversationId: string = ''; // Gardera l'ID de la conversation dynamiquement
   messages: any[] = [];
-  newMessage: string = '';
-  loading: boolean = true;
-  currentUser: firebase.User | null = null; // Utilisateur actuellement connecté
+  newMessageText = '';
 
-  constructor(private messageService: MessageService, private authService: AuthService) {}
+  constructor(private messageService: MessageService, private route: ActivatedRoute,
+    private authService: AuthService
+  ) { }
 
   ngOnInit(): void {
-    this.authService.getCurrentUser().then(user => {
-      this.currentUser = user;
+    this.route.paramMap.subscribe(params => {
+      this.currentConversationId = params.get('id') || '';
       this.loadMessages();
+      this.messageService.updateLastSeenOnViewingNewConversation(this.currentConversationId);
     });
   }
 
-  loadMessages() {
-    this.loading = true;
-    this.messageService.getMessages(this.conversationId).subscribe((data: any[]) => {
-      this.messages = data;
-      this.loading = false;
+  ngOnDestroy(): void {
+    this.messageService.unsubscribeFromConversationUpdates();
+  }
+
+  loadMessages(): void {
+    this.messageService.getMessages(this.currentConversationId, (messages: never[]) => {
+      this.messages = messages;
     });
   }
 
-  sendMessage() {
-    if (this.newMessage.trim() !== '') {
-      this.messageService.sendMessage(this.conversationId, this.newMessage)
-        .then(() => {
-          this.newMessage = ''; // Effacer le champ de saisie après l'envoi
-        })
-        .catch(error => {
-          console.error('Erreur lors de l\'envoi du message :', error);
-        });
+  sendMessage(): void {
+    let currentUserUid = this.authService.getCurrentUserUid();
+    if (!currentUserUid) {
+      console.error('Current user not found');
+      return;
+    }
+
+    if (this.newMessageText.trim()) {
+      this.messageService.sendMessage(this.currentConversationId, this.newMessageText, currentUserUid);
+      this.newMessageText = '';
     }
   }
 }

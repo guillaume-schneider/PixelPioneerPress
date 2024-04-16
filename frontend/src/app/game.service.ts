@@ -10,7 +10,8 @@ import { Game } from '../models/Game'; // Importez l'interface Game
 export class GameService {
   private apiUrl = 'http://127.0.0.1:5000/steam';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   getGames(): Observable<Game[]> {
     return this.http.get<any>(`${this.apiUrl}/games`).pipe(

@@ -11,10 +11,7 @@ import { SignupComponent } from './signup/signup.component';
 import { GameCardComponent } from './game-card/game-card.component';
 import { AuthService } from './auth.service';
 
-import { AngularFireModule } from '@angular/fire/compat';
-import { AngularFirestore, AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { environment } from '../environments/environment';
-import { Observable } from 'rxjs';
 import { CatalogueComponent } from './catalogue/catalogue.component';
 import { ErrorFormatPipe } from './error-format.pipe';
 import { FirebaseSignUpErrorPipe } from './firebase-sign-up-error.pipe';
@@ -30,10 +27,9 @@ import { RoundPipe } from './round.pipe';
 import { MessageComponent } from './message/message.component';
 import { AddFriendComponent } from './add-friend/add-friend.component';
 import { FriendsListComponent } from './friends-list/friends-list.component';
-import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { WishlistComponent } from './wishlist/wishlist.component';
 import { MatButtonModule } from '@angular/material/button';
-import {MatRippleModule} from '@angular/material/core';
+import { MatRippleModule} from '@angular/material/core';
 import { HomeCardComponent } from './home-card/home-card.component';
 
 import { MatCardModule } from '@angular/material/card';
@@ -42,8 +38,12 @@ import { SearchBarComponent } from './search-bar/search-bar.component';
 import { SearchResultsComponent } from './search-results/search-results.component';
 import { TopComponent } from './top/top.component';
 import { MessagesComponent } from './messages/messages.component';
-import { ConversationComponent } from './conversation/conversation.component';
-import { NewConversationComponent } from './new-conversation/new-conversation.component';
+
+import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
+import { provideFirestore, getFirestore } from '@angular/fire/firestore';
+import { provideAuth, getAuth } from '@angular/fire/auth';
+import { provideDatabase, getDatabase } from '@angular/fire/database';
+import { MatBadgeModule } from '@angular/material/badge';
 
 
 @NgModule({
@@ -73,30 +73,29 @@ import { NewConversationComponent } from './new-conversation/new-conversation.co
     SearchResultsComponent,
     TopComponent,
     MessagesComponent,
-    ConversationComponent,
-    NewConversationComponent
   ],
   imports: [
     BrowserModule,
     RoutingModule,
     FormsModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFirestoreModule,
     HttpClientModule,
     BrowserAnimationsModule,
     MatDialogModule,
-    AngularFireDatabaseModule,
     MatButtonModule,
     MatRippleModule,
-    MatCardModule
+    MatCardModule,
+    MatBadgeModule,
+
+    provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
+    provideDatabase(() => getDatabase()),
+    provideFirestore(() => getFirestore()),
+    provideAuth(() => getAuth()),
   ],
-  providers: [AuthService,],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  items$: Observable<any[]>;
 
-  constructor(private firestore: AngularFirestore) {
-    this.items$ = this.firestore.collection('items').valueChanges();
+  constructor() {
   }
 }

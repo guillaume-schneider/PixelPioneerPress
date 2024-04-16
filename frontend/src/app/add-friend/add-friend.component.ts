@@ -7,32 +7,30 @@ import { FriendService } from '../friend.service';
   styleUrls: ['./add-friend.component.css']
 })
 export class AddFriendComponent {
-  searchText = '';
-  users: any[] = [];  // Remplacer 'any' par le type approprié si disponible
+  searchText: string = '';
+  allUsers: any[] = [];
   filteredUsers: any[] = [];
 
   constructor(private friendService: FriendService) {
     this.loadAllUsers();
   }
 
-  loadAllUsers() {
+  loadAllUsers(): void {
     this.friendService.getAllUsers().subscribe(users => {
-      this.users = users;
-      console.log('Utilisateurs:', users);
-      this.filteredUsers = users;
+      this.allUsers = users;
+    }, error => {
+      console.error('Failed to load users:', error);
     });
   }
 
-  searchUsers() {
-    console.log(this.users)
-    if (!this.searchText.trim()) {
+  searchUsers(): void {
+    if (this.searchText) {
+      this.filteredUsers = this.allUsers.filter(user =>
+        user.username.toLowerCase().includes(this.searchText.toLowerCase())
+      );
+    } else {
       this.filteredUsers = [];
-      return;
     }
-    this.filteredUsers = this.users.filter(user =>
-      user.username.toLowerCase().includes(this.searchText.toLowerCase())
-    );
-    console.log('Utilisateurs filtrés:', this.filteredUsers);
   }
 
   addFriend(user: any) {

@@ -1,11 +1,11 @@
 <div class="messages-container">
   <div class="search-bar">
-      <input type="text" [(ngModel)]="searchText" placeholder="Rechercher des amis..." (ngModelChange)="searchFriends()">
+    <input type="text" [(ngModel)]="searchText" (ngModelChange)="searchFriends()" placeholder="Rechercher des amis...">
   </div>
   <div class="conversations-list">
-      <div *ngFor="let conversation of conversations" class="conversation">
-          <div class="friend-name">{{ conversation.friendName }}</div>
-          <div class="last-message">{{ conversation.lastMessage }}</div>
-      </div>
+    <div *ngFor="let conversation of filteredConversations" class="conversation" (click)="navigateToConversation(conversation.id)">
+      <div class="friend-name">{{ conversation.otherUsername }}</div>
+      <div class="last-message">{{ conversation.lastMessage }}</div>
+    </div>
   </div>
 </div>

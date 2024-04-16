@@ -1,129 +1,133 @@
+/* Conteneur principal pour le centrage */
 .wrapper {
   display: flex;
   justify-content: center;
 }
 
+/* Conteneur de cartes avec flexbox pour un alignement responsive */
 .card-container {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: wrap; /* Permet aux éléments de passer à la ligne automatiquement */
   justify-content: center;
-
+  gap: 20px; /* Ajoute un espacement entre les cartes */
 }
 
+/* Bouton de lecture positionné absolument pour le centrage */
 .play-button {
   position: absolute;
-  top: 45%;
-  left: 50%;
+  top: 50%; /* Centrage vertical */
+  left: 50%; /* Centrage horizontal */
   transform: translate(-50%, -50%);
   cursor: pointer;
 }
 
+/* Styles de titre pour différentes tailles d'écran */
 h2 {
-  font: 400 2.5em/1 'Roboto', sans-serif;
-  font-weight: bold; /* Makes the text bold */
-  margin-top: 15%; /* Adds space below the text */
+  font: 400 1em/1 'Roboto', sans-serif;
+  font-weight: bold;
+  margin-top: 12%;
+  text-align: center; /* Centrage du texte */
 }
 
+/* Styles de texte */
 .text {
   color: #ff7700;
-  font-size: 24px;
+  font-size: 1.5rem; /* Adaptation de la taille du texte */
   text-align: center;
-  margin-top: 50px; /* Augmente la marge en haut */
-  position: relative; /* Ajoute une position relative */
-  top: 50px; /* Descend le texte */
-  font-weight: bold; /* Rend le texte en gras */
-  text-shadow: 0 0 10px #ff7700; /* Ajoute une ombre au texte pour le rendre luminescent */
+  margin-top: 2rem;
+  position: relative;
+  top: 20px; /* Ajustement de la position */
+  font-weight: bold;
+  text-shadow: 0 0 10px #ff7700;
 }
 
+/* Styles des liens avec des animations */
 a {
   position: relative;
   display: inline-block;
-  padding: 15px 30px;
+  padding: 12px 25px; /* Ajustement des paddings */
   color: #ff7700;
   text-transform: uppercase;
-  letter-spacing: 4px;
+  letter-spacing: 3px;
   text-decoration: none;
-  font-size: 24px;
+  font-size: 18px; /* Taille de police plus petite pour les petits écrans */
   overflow: hidden;
   transition: 0.2s;
 }
 
-
-
 a:hover {
-  color: #8d5f36;
+  color: #fff;
   background: #ff7700;
   box-shadow: 0 0 10px #ff7700, 0 0 40px #ff7700, 0 0 80px #ff7700;
-  transition-delay: 1s;
 }
 
-
+/* Animations pour les spans dans les liens */
 a span {
   position: absolute;
   display: block;
 }
 
-
-
-
-a span:nth-child(1) {
-  top: 0;
-  left: -100%;
+a span:nth-child(1), a span:nth-child(3) {
   width: 100%;
   height: 2px;
-  background: linear-gradient(90deg, transparent, #ff7700);
 }
 
-
-
-a:hover span:nth-child(1) {
-  left: 100%;
-  transition: 1s;
-}
-
-
-a span:nth-child(3) {
-  bottom: 0;
-  right: -100%;
-  width: 100%;
-  height: 2px;
-  background: linear-gradient(270deg, transparent, #ff7700);
-}
-
-a:hover span:nth-child(3) {
-  right: 100%;
-  transition: 1s;
-  transition-delay: 0.5s;
-}
-
-
-
-a span:nth-child(2) {
-  top: -100%;
-  right: 0;
+a span:nth-child(2), a span:nth-child(4) {
   width: 2px;
   height: 100%;
-  background: linear-gradient(180deg, transparent, #ff7700);
 }
 
-a:hover span:nth-child(2) {
-  top: 100%;
+/* Définition de gradient et de transitions */
+a span {
+  background: linear-gradient(90deg, transparent, #ff7700);
   transition: 1s;
+}
+
+a:hover span {
   transition-delay: 0.25s;
 }
 
+a:hover span:nth-child(1) { left: 100%; }
+a:hover span:nth-child(2) { top: 100%; }
+a:hover span:nth-child(3) { right: 100%; }
+a:hover span:nth-child(4) { bottom: 100%; }
 
-
-a span:nth-child(4) {
-  bottom: -100%;
-  left: 0;
-  width: 2px;
-  height: 100%;
-  background: linear-gradient(360deg, transparent, #ff7700);
+/* Media Queries pour ajuster les styles sur petits écrans */
+@media (max-width: 915px) {
+  .card-container {
+    flex-wrap: wrap; /* Permet aux éléments de passer à la ligne automatiquement */
+    justify-content: center;
+    gap: 20px; /* Ajoute un espacement entre les cartes */
+  }
+  h2 {
+    font-size: 1.5rem; /* Réduction de la taille du titre */
+  }
+  .text {
+    font-size: 1rem; /* Texte plus petit */
+    margin-top: 1rem;
+  }
+  a {
+    font-size: 1rem; /* Lien plus petit */
+    padding: 10px 20px;
+  }
 }
+@media (min-width: 1400px) {
+  h2 {
+    font-size: 2rem; /* Réduction de la taille du titre */
+    margin-bottom: 10rem;
 
-a:hover span:nth-child(4) {
-  bottom: 100%;
-  transition: 1s;
-  transition-delay: 0.75s;
+  }
+  .text {
+    font-size: 3rem; /* Texte plus petit */
+    margin-top: 3rem;
+  }
+  a {
+    font-size: 2rem; /* Lien plus petit */
+    padding: 10px 20px;
+  }
+  .play-button {
+    top: 45%; /* Centrage vertical ajusté */
+    left: 50%; /* Centrage horizontal ajusté */
+    font-size: 2rem; /* Taille de police plus grande pour le bouton de lecture */
+  }
 }

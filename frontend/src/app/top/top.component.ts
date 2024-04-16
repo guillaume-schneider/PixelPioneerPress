@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { GameService } from '../game.service';
+import { Database } from '@angular/fire/database';
 
 @Component({
   selector: 'app-top',
@@ -13,7 +14,9 @@ export class TopComponent implements OnInit {
   safeDescriptions: SafeHtml[] = [];
   showDescription: boolean = false;
 
-  constructor(private gameService: GameService, private sanitizer: DomSanitizer) { }
+  constructor(private gameService: GameService, private sanitizer: DomSanitizer
+  )
+  { }
 
 
 

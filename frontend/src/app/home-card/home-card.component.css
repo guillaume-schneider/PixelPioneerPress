@@ -1,16 +1,16 @@
 .image-card {
-  width: 300px; /* ou la largeur de votre choix */
-  height: 850px; /* ou la hauteur de votre choix */
-  border-radius: 45px; /* bords arrondis */
-  margin: 100px;
-  overflow: hidden; /* assurez-vous que les images ne débordent pas des cartes */
-  box-shadow: 0 20px 80px #000000; /* Effet d'ombre initial */
+  width: 15vw; /* Largeur relative à la taille de l'écran */
+  height: 75vh; /* Hauteur relative, ici basée sur une conversion de 850px supposant un viewport height de 1500 */
+  border-radius: 3rem; /* Bords arrondis */
+  margin: 1rem; /* Marge réduite pour les petits écrans */
+  overflow: hidden; /* Empêche les images de déborder */
+  box-shadow: 0 1.33vw 5.33vw #000; /* Effet d'ombre */
   transition: transform 0.9s ease, box-shadow 0.9s ease;
 }
 
 .image-card:hover {
-  transform: translateY(100px);
-  box-shadow: 0 20px 80px #ff7700; /* Effet d'ombre au survol */
+  transform: translateY(6.67vh); /* Animation de translation */
+  box-shadow: 0 1.33vw 5.33vw #ff7700; /* Changement de couleur d'ombre */
 }
 
 .image-card img {
@@ -18,6 +18,14 @@
   height: 110%;
   object-fit: cover;
   border-radius: inherit;
+}
+
+@media (max-width: 915px) {
+  .image-card {
+    width: 80vw; /* Plus large sur les petits écrans */
+    height: 80vh; /* Hauteur ajustée */
+    margin: 0.5rem; /* Marge réduite */
+  }
 }
 
 .card:before {
@@ -34,6 +42,7 @@
   transition: 0.5s;
   opacity: 0;
 }
+
 
 .card:hover:before {
   opacity: 1;
