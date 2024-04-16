@@ -1,31 +1,66 @@
-# PixelPioneerPress
+# Pixel Pioneer
 
-PixelPioneerPress is your ultimate destination for staying up-to-date with the latest cross-platform indie game news. Explore, discover, and personalize your indie gaming experience with PixelPioneerPress.
+## Introduction
+Bienvenue dans le répertoire du Pixel Pioneer, un hub social multiplateforme pour les amateurs de jeux vidéo. Ce projet utilise Angular pour le frontend, Flask pour le backend, et Firebase pour la gestion des données utilisateurs.
 
-## Features
+## Prérequis
+Assurez-vous d'avoir les outils suivants installés sur votre machine :
+- Python 3.8 ou plus récent
+- pip et virtualenv
+- Node.js et npm
+- Angular CLI
+- Firebase CLI (si nécessaire pour des commandes spécifiques)
 
-- **Curated Content:** Dive into a curated selection of diverse indie titles from Steam, Itch.io, and more.
-- **User Personalization:** Create an account to customize your gaming preferences and receive tailored recommendations.
-- **Seamless Integration:** Connect effortlessly with your Steam account for a streamlined and personalized experience.
-- **In-depth Insights:** Stay informed with detailed insights into the newest, most relevant, and trending indie games.
+## Installation
 
-## Getting Started
+### Cloner le dépôt
 
-To get started with PixelPioneerPress, follow these steps:
+git clone https://github.com/guillaume-schneider/PixelPioneerPress.git
+cd pixelpioneerpress
 
-1. Clone the repository.
-2. Install the required dependencies.
-3. Set up your database.
-4. Run the application.
 
-## Contributing
+### Configurer l'environnement virtuel et installer les dépendances du backend
 
-We welcome contributions! If you'd like to contribute to PixelPioneerPress, please follow our [contribution guidelines](CONTRIBUTING.md).
+cd backend
+python -m venv venv
+.\venv\Scripts\activate
+pip install -r requirements.txt
+cd ..
 
-## Support
 
-For any issues or inquiries, please contact our support team at support@pixelpioneerpress.com.
+### Installer les dépendances du frontend
 
-## License
+cd frontend
+npm install
+cd ..
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Lancement des serveurs
+Chaque serveur doit être lancé manuellement depuis la racine du projet. Voici les étapes à suivre :
+
+### Lancer le serveur Flask (Backend Python)
+Ouvrez un terminal et exécutez :
+
+echo "Lancement du serveur Python..."
+cmd /c start cmd /k "backend\venv\Scripts\activate && python backend/src/main.py"
+
+
+### Lancer le JSON Server (Pour développement frontend)
+Ouvrez un autre terminal et exécutez :
+
+echo "Lancement de json-server..."
+cmd /c start cmd /k "json-server --watch frontend/db.json --port 3000 --host localhost"
+
+
+### Lancer le serveur Angular (Frontend)
+Ouvrez un troisième terminal et exécutez :
+
+echo "Lancement du serveur Angular..."
+cmd /c start cmd /k "cd frontend && ng serve --open --port 4200 --host localhost"
+
+
+## Premier Lancement
+Lors du premier accès aux pages telles que /home, /top, ou la recherche de jeux, le backend Flask peut prendre du temps pour récupérer les données, car elles sont hébergées sur un serveur local. De plus, la logique de recommandation de jeux intégrée au frontend peut rendre le chargement de la page /home particulièrement lent lors de la première visite. Il peut être nécessaire de relancer la page deux à trois fois.
+
+## Utilisation
+Naviguez sur `http://localhost:4200` pour accéder à l'interface du Pixel Pioneer.
