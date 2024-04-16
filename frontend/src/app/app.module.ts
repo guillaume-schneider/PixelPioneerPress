@@ -38,12 +38,12 @@ import { SearchBarComponent } from './search-bar/search-bar.component';
 import { SearchResultsComponent } from './search-results/search-results.component';
 import { TopComponent } from './top/top.component';
 import { MessagesComponent } from './messages/messages.component';
-import { ConversationComponent } from './conversation/conversation.component';
-import { NewConversationComponent } from './new-conversation/new-conversation.component';
 
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { provideAuth, getAuth } from '@angular/fire/auth';
+import { provideDatabase, getDatabase } from '@angular/fire/database';
+import { MatBadgeModule } from '@angular/material/badge';
 
 
 @NgModule({
@@ -73,8 +73,6 @@ import { provideAuth, getAuth } from '@angular/fire/auth';
     SearchResultsComponent,
     TopComponent,
     MessagesComponent,
-    ConversationComponent,
-    NewConversationComponent,
   ],
   imports: [
     BrowserModule,
@@ -86,12 +84,14 @@ import { provideAuth, getAuth } from '@angular/fire/auth';
     MatButtonModule,
     MatRippleModule,
     MatCardModule,
+    MatBadgeModule,
 
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
+    provideDatabase(() => getDatabase()),
     provideFirestore(() => getFirestore()),
-    provideAuth(() => getAuth())
+    provideAuth(() => getAuth()),
   ],
-  providers: [AuthService,],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -1,8 +1,8 @@
 <div class="search-container">
   <input type="text" [(ngModel)]="searchText" (ngModelChange)="searchUsers()" placeholder="Recherche d'amis...">
-  <ul *ngIf="filteredUsers.length > 0">
-      <li *ngFor="let user of filteredUsers" (click)="addFriend(user)">
-          {{ user.username }}
-      </li>
+  <ul *ngIf="searchText && filteredUsers.length > 0">
+    <li *ngFor="let user of filteredUsers" (click)="addFriend(user)">
+      {{ user.username }}
+    </li>
   </ul>
 </div>

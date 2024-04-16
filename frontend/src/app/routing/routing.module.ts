@@ -15,7 +15,6 @@ import { HomeGuard } from '../home.guard';
 import { SearchResultsComponent } from '../search-results/search-results.component';
 import { TopComponent } from '../top/top.component';
 import { MessagesComponent } from '../messages/messages.component';
-import { ConversationComponent } from '../conversation/conversation.component';
 import { ReverseAuthGuard } from '../reverse-auth.guard';
 
 const routes: Routes = [
@@ -31,10 +30,10 @@ const routes: Routes = [
   {path: 'wishlist', component: WishlistComponent, canActivate: [AuthGuard]},
   {path: 'reset-password', component: ResetPasswordComponent},
   {path: 'message', component: MessageComponent, canActivate: [AuthGuard]},
-  { path: 'conversation/:id', component: ConversationComponent },
-  {path: 'messages', component: MessagesComponent, canActivate: [AuthGuard]},
   {path: 'add-friend', component: AddFriendComponent, canActivate: [AuthGuard]},
-  {path: 'search-results', component: SearchResultsComponent }
+  {path: 'search-results', component: SearchResultsComponent },
+  { path: 'messages', component: MessagesComponent, canActivate: [AuthGuard]},
+  { path: 'message/:id', component: MessageComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({

@@ -1,44 +1,31 @@
 import { Injectable } from '@angular/core';
-import { Database, ref, push, set, getDatabase, child, get } from '@angular/fire/database';
-import { Observable, from } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Firestore, collection, onSnapshot, query as fsQuery, where } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
+import { AuthService } from './auth.service';
+import { setDoc } from 'firebase/firestore';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ConversationService {
-  private db: Database;
 
-  constructor() {
-    this.db = getDatabase();  // Initialize Firebase Database
-  }
+  constructor(private firestore: Firestore, private authService: AuthService) {}
 
-  // Création d'une nouvelle conversation
-  createConversation(participants: string[]): Promise<string | null> {
-    const newConversationRef = ref(this.db, 'conversations');
-    const newConvRef = push(newConversationRef); // This is a ThenableReference
-    return set(newConvRef, {
-      participants: participants.reduce((acc, cur) => ({ ...acc, [cur]: true }), {}),
-      createdAt: new Date().getTime()
-    }).then(() => newConvRef.key);  // Return the ID of the new conversation after setting the data
-  }
+  async listenForConversations(userId: string): Promise<any[]> {
+    return new Promise((resolve, reject) => {
+      const conversationsRef = collection(this.firestore, 'conversations');
+      const q = fsQuery(conversationsRef, where('participants', 'array-contains', userId));
 
-  // Envoi d'un message
-  sendMessage(conversationId: string, senderId: string, message: string): Promise<void> {
-    const messagesRef = ref(this.db, `messages/${conversationId}`);
-    const newMessageRef = push(messagesRef); // This is a ThenableReference
-    return set(newMessageRef, {
-      senderId: senderId,
-      text: message,
-      timestamp: new Date().getTime()
-    }); // Return a promise that resolves when the message is sent
-  }
-
-  // Récupération des messages d'une conversation
-  getMessages(conversationId: string): Observable<any[]> {
-    const messagesRef = ref(this.db, `messages/${conversationId}`);
-    return from(get(child(messagesRef, '/'))).pipe(
-      map(snapshot => snapshot.exists() ? snapshot.val() : [])
-    );
+      onSnapshot(q, (snapshot) => {
+        const updatedConversations = snapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        }));
+        resolve(updatedConversations);
+      }, error => {
+        console.error("Error listening to conversations:", error);
+        reject(error);
+      });
+    });
   }
 }

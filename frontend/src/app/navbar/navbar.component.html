@@ -25,7 +25,14 @@
         </li>
 
         <li class="nav-item" *ngIf="(authService.user$ | async)">
-          <a class="nav-link" routerLink="/messages"><i class="fas fa-envelope fa-lg"></i></a>
+          <a class="nav-link" routerLink="/messages">
+            <ng-container *ngIf="totalUnreadMessageCount !== 0">
+              <i class="fas fa-envelope fa-lg" [matBadge]="totalUnreadMessageCount" matBadgeSize="small" matBadgeColor="warn"></i>
+            </ng-container>
+            <ng-container *ngIf="totalUnreadMessageCount === 0">
+              <i class="fas fa-envelope fa-lg"></i>
+            </ng-container>
+          </a>
         </li>
 
         <li class="nav-item dropdown" *ngIf="(authService.user$ | async) as user">
@@ -34,6 +41,8 @@
           </a>
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
             <li><a class="dropdown-item" routerLink="/profile">Profile</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" routerLink="/add-friend">Add Friend</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="#" (click)="authService.signOut()">Logout</a></li>
           </ul>

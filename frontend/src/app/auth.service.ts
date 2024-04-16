@@ -9,7 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 // import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 import { Auth, authState, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, User, UserCredential } from '@angular/fire/auth';
-import { Firestore, doc, setDoc, updateDoc, Timestamp } from '@angular/fire/firestore';
+import { Firestore, doc, setDoc, updateDoc, Timestamp, collection, getDoc } from '@angular/fire/firestore';
 
 
 @Injectable({
@@ -28,7 +28,7 @@ export class AuthService {
 
   getCurrentUserUid(): string | null {
     const user = this.auth.currentUser;
-    return user ? user.uid : null; // Directly access `uid` if user is not null
+    return user ? user.uid : null;
   }
 
   async registerUser(email: string, password: string, additionalData: any): Promise<void> {
@@ -95,30 +95,20 @@ export class AuthService {
     return updateDoc(doc(this.firestore, 'users', uid), data);
   }
 
-
-  // async generateUniqueUsernameTag(username: string): Promise<string> {
-  //   const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-  //   const numbers = '0123456789';
-
-  //   username = username.trim().toUpperCase();
-
-  //   const usernamePrefix = username.substr(0, Math.min(username.length, 3));
-
-  //   let tag = '';
-
-  //   tag += usernamePrefix;
-
-  //   for (let i = 0; i < 1; i++) {
-  //     const randomNumber = numbers.charAt(Math.floor(Math.random() * numbers.length));
-  //     tag += randomNumber;
-  //   }
-
-  //   const snapshot = await this.db.list('users', ref => ref.orderByChild('usernameTag').equalTo(tag)).valueChanges().toPromise();
-  //   if (snapshot && snapshot.length > 0) {
-  //     return this.generateUniqueUsernameTag(username);
-  //   }
-
-  //   return tag;
-  // }
+  getUsername(userId: string): Promise<string> {
+    return new Promise<string>((resolve, reject) => {
+      const userDocRef = doc(this.firestore, 'users', userId);
+      getDoc(userDocRef).then(docSnapshot => {
+        if (docSnapshot.exists()) {
+          const username = docSnapshot.data()?.['username'] || '';
+          resolve(username);
+        } else {
+          resolve('');
+        }
+      }).catch(error => {
+        reject(error);
+      });
+    });
+  }
 
 }

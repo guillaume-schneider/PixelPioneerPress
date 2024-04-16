@@ -19,3 +19,18 @@ exports.createConversation = functions.firestore
 
         console.log('New conversation created with ID:', conversationRef.id);
     });
+
+exports.notifyUnreadMessageCount = functions.firestore
+.document('conversations/{conversationId}/unreadMessageCount/{userId}')
+.onUpdate(async (change: { after: { data: () => any; }; before: { data: () => any; }; }, context: { params: { userId: any; conversationId: any; }; }) => {
+  const newValue = change.after.data();
+  const previousValue = change.before.data();
+
+  if (newValue.message_count !== previousValue.message_count) {
+    const userId = context.params.userId;
+    const conversationId = context.params.conversationId;
+
+    // Mettre à jour la valeur dans la base de données Realtime Database
+    admin.database().ref(`users/${userId}/unreadMessageCount/${conversationId}`).set(newValue.message_count);
+  }
+});

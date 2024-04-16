@@ -7,6 +7,7 @@ export const environment = {
   firebaseConfig: {
     apiKey: "AIzaSyAcPGa4g3lLcFMOqqKiecQ9YUNt-yumBIQ",
     authDomain: "pixelpioneerpress-846b4.firebaseapp.com",
+    databaseURL: "https://pixelpioneerpress-846b4-default-rtdb.europe-west1.firebasedatabase.app",
     projectId: "pixelpioneerpress-846b4",
     storageBucket: "pixelpioneerpress-846b4.appspot.com",
     messagingSenderId: "197167085981",
