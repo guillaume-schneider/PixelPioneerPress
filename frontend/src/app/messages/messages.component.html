@@ -1,6 +1,6 @@
 <div class="messages-container">
   <div class="search-bar">
-    <input type="text" [(ngModel)]="searchText" (ngModelChange)="searchFriends()" placeholder="Rechercher des amis...">
+    <input type="text" [(ngModel)]="searchText" (ngModelChange)="searchFriends()" placeholder="Search friends...">
   </div>
   <div class="conversations-list">
     <div *ngFor="let conversation of filteredConversations" class="conversation" (click)="navigateToConversation(conversation.id)">

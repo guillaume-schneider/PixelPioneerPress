@@ -11,11 +11,14 @@ def create_game_component():
         steam_info = steam.get_game_by_id(game_id)
         steampsy_info = steamspy.get_game_by_steam_id(game_id)
         print("Getting game info...")
-        
+
         if steam_info is None or steampsy_info is None:
             continue
-        
+
         print(f"{game_id}: starting...")
+
+        if 'data' not in steam_info[str(game_id)]:
+            continue
 
         steam_info = steam_info[str(game_id)]['data']
         linux_requirement = steam_info['linux_requirements']['minimum'] if 'minimum' in steam_info['linux_requirements'] else ""

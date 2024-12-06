@@ -3,27 +3,27 @@
     <div class="col-md-6 offset-md-3">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">Profil Utilisateur</h5>
+          <h5 class="card-title">User profile</h5>
           <div *ngIf="!isEditMode">
-            <p><strong>Nom d'utilisateur :</strong> {{ user.displayName }}</p>
-            <p><strong>Adresse e-mail :</strong> {{ user.email }}</p>
-            <button class="btn btn-primary" (click)="toggleEditMode()" matRipple matRippleColor="#ff7700">Modifier</button>
+            <p><strong>User name :</strong> {{ user.displayName }}</p>
+            <p><strong>E-mail address:</strong> {{ user.email }}</p>
+            <button class="btn btn-primary" (click)="toggleEditMode()" matRipple matRippleColor="#ff7700">Edit</button>
           </div>
           <div *ngIf="isEditMode">
             <div class="mb-3">
-              <label for="displayName" class="form-label">Nom d'utilisateur :</label>
+              <label for="displayName" class="form-label">User name :</label>
               <input type="text" id="displayName" class="form-control" [(ngModel)]="newDisplayName" name="displayName">
                 {{ user.displayName }}
               <div *ngIf="displayNameError" class="text-danger">{{ displayNameError }}</div>
             </div>
             <div class="mb-3">
-              <label for="email" class="form-label">Adresse e-mail :</label>
+              <label for="email" class="form-label">E-mail address :</label>
               <input type="email" id="email" class="form-control" [(ngModel)]="newEmail" name="email">
               {{ user.email }}
               <div *ngIf="emailError" class="text-danger">{{ emailError }}</div>
             </div>
-            <button class="btn btn-primary" (click)="updateProfile()" matRipple matRippleColor="#ff7700">Enregistrer</button>
-            <button class="btn btn-secondary" (click)="toggleEditMode()" matRipple matRippleColor="#ff7700">Annuler</button>
+            <button class="btn btn-primary" (click)="updateProfile()" matRipple matRippleColor="#ff7700">Save</button>
+            <button class="btn btn-secondary" (click)="toggleEditMode()" matRipple matRippleColor="#ff7700">Cancel</button>
           </div>
         </div>
       </div>
