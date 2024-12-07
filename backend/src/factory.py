@@ -1,6 +1,6 @@
 from src.game import Game, GameBatch
 import steam
-import steamspy
+import src.steamspy
 
 
 def create_game_component():
