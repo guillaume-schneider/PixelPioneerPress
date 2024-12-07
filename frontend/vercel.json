@@ -6,5 +6,6 @@
       "use": "@vercel/static-build",
       "config": { "distDir": "dist/frontend" }
     }
-  ]
+  ],
+  "ignoreBuildStep": ["frontend"]
 }
