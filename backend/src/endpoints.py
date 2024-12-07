@@ -22,13 +22,13 @@ def index():
 
 
 @app.route('/steam/games', methods=['GET'])
-def get_data():
+async def get_data():
     if not hasattr(app, 'game_batch'):
-        app.game_batch = load_game_data()
+        app.game_batch = await load_game_data()
     return app.game_batch.to_json()
 
 
-def load_game_data():
+async def load_game_data():
     batch = GameBatch()
     file_path = './backend/res/data.json'
 
@@ -42,7 +42,7 @@ def load_game_data():
                 game = factory.Game(**game_data)
                 batch.add_game(game)
     else:
-        batch = factory.create_game_component()
+        batch = await factory.create_game_component()
         with open(file_path, 'w') as f:
             json.dump(batch.to_json(), f)
 
@@ -50,9 +50,9 @@ def load_game_data():
 
 
 @app.route('/steam/game/<int:id>', methods=['GET'])
-def get_game_by_id(id):
+async def get_game_by_id(id):
     if not hasattr(app, 'game_batch'):
-        app.game_batch = load_game_data()
+        app.game_batch = await load_game_data()
 
     game = app.game_batch.get_game_by_id(id)
     if game:
