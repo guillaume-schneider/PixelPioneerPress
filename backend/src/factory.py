@@ -1,6 +1,8 @@
 from src.game import Game, GameBatch
 import src.steam as steam
 import src.steamspy as steamspy
+import asyncio
+import httpx
 
 
 async def fetch_game_data(game_id, client):
