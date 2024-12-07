@@ -1,5 +1,5 @@
 from src.game import Game, GameBatch
-import steam
+import src.steam as steam
 import src.steamspy as steamspy
 
 
