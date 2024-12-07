@@ -14,5 +14,16 @@
       "src": "/(.*)",
       "dest": "/index.html"
     }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Content-Security-Policy",
+          "value": "connect-src 'self' http://127.0.0.1:5000 https://ka-f.fontawesome.com https://identitytoolkit.googleapis.com https://firestore.googleapis.com http://localhost:3000 wss://pixelpioneerpress-846b4-default-rtdb.firebaseio.com https://securetoken.googleapis.com wss://s-euw1b-nss-201.europe-west1.firebasedatabase.app https://pixelpioneerpress.onrender.com/steam/game/* https://pixelpioneerpress.onrender.com/steam/games;"
+        }
+      ]
+    }
   ]
 }
