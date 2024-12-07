@@ -1,7 +1,7 @@
 from flask import Flask
-from game import GameBatch
+from src.game import GameBatch
 from flask_cors import CORS
-import factory
+import src.factory
 import os
 import json
 

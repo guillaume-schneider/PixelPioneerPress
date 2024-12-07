@@ -1,4 +1,4 @@
-from game import Game, GameBatch
+from src.game import Game, GameBatch
 import steam
 import steamspy
 
