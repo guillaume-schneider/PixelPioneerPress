@@ -42,7 +42,7 @@ class Screenshot:
 class GameBatch:
     def __init__(self) -> None:
         self.games: list[Game] = []
-        
+
     def add_game(self, game: Game):
         self.games.append(game)
 
@@ -54,19 +54,19 @@ class GameBatch:
             if game.id == game_id:
                 return game
         return None
-    
+
     def get_game_by_title(self, title: str) -> Game:
         for game in self.games:
             if game.title == title:
                 return game
         return None
-    
+
     def get_game_by_steam_id(self, steam_id: int) -> Game:
         for game in self.games:
             if game.steam_id == steam_id:
                 return game
         return None
-    
+
     def remove_game(self, game_id: int):
         for game in self.games:
             if game.id == game_id:
