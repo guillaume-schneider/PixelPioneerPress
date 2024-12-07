@@ -5,25 +5,21 @@ import asyncio
 import httpx
 
 
-async def fetch_game_data(game_id):
+async def fetch_game_data(game_id, client):
     try:
-        # Remove the `client` parameter if unnecessary
-        steam_info_task = asyncio.create_task(steam.get_game_by_id(game_id))
-        steampsy_info_task = asyncio.create_task(steamspy.get_game_by_steam_id(game_id))
+        steam_info_task = asyncio.create_task(steam.get_game_by_id(game_id, client))
+        steampsy_info_task = asyncio.create_task(steamspy.get_game_by_steam_id(game_id, client))
 
-        steam_info, steampsy_info = await asyncio.gather(steam_info_task,
-                                                         steampsy_info_task)
+        steam_info, steampsy_info = await asyncio.gather(steam_info_task, steampsy_info_task)
 
-        if steam_info is None or steampsy_info is None \
-                or 'data' not in steam_info[str(game_id)]:
+        if steam_info is None or steampsy_info is None or 'data' not in steam_info[str(game_id)]:
             return None
 
         steam_info = steam_info[str(game_id)]['data']
         linux_requirement = steam_info['linux_requirements'].get('minimum', "")
         mac_requirement = steam_info['mac_requirements'].get('minimum', "")
         pc_requirement = steam_info['pc_requirements'].get('minimum', "")
-        video = steam_info['movies'][0]['mp4']['480'] \
-            if 'movies' in steam_info else ""
+        video = steam_info['movies'][0]['mp4']['480'] if 'movies' in steam_info else ""
 
         game = Game(
             id=game_id,
