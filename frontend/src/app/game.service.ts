@@ -8,7 +8,7 @@ import { Game } from '../models/Game'; // Importez l'interface Game
   providedIn: 'root'
 })
 export class GameService {
-  private apiUrl = 'http://127.0.0.1:5000/steam';
+  private apiUrl = 'https://pixelpioneerpress.onrender.com/steam';
 
   constructor(private http: HttpClient) {
   }
