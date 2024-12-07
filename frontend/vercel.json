@@ -4,8 +4,15 @@
     {
       "src": "package.json",
       "use": "@vercel/static-build",
-      "config": { "distDir": "dist/frontend" }
+      "config": {
+        "distDir": "dist/frontend"
+      }
     }
   ],
-  "ignoreBuildStep": ["frontend"]
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ]
 }
