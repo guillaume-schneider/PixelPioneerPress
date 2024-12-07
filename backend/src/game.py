@@ -18,7 +18,7 @@ class Game:
     linux_requirement: str
     pc_requirement: str
     mac_requirement: str
-    #screenshots: list[str]
+    # screenshots: list[str]
     video: str
     release_date: str
 
