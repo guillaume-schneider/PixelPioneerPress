@@ -1,2 +1,1 @@
-web: gunicorn src.endpoints:app
-
+hypercorn src.endpoints:app --bind 0.0.0.0:5000
